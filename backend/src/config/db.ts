@@ -20,7 +20,7 @@ export const AppDataSource = new DataSource({
     entities: ["src/models/**/*.ts"],
     options: {
         encrypt: false, //Nếu SQL Server yêu cầu SSL thì đặt là true
-
+        enableArithAbort: true,
     },
 }
 );

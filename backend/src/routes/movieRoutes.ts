@@ -1,15 +1,18 @@
 import { Router } from "express";
-import { getMovies, getMovieById, createMovie } from "../controllers/movieController";
+import { getAllMovies, getMovieDetails, getEpisodesByMovie, searchMovies } from "../controllers/movieController";
+import { saveWatchHistory } from "../controllers/watchHistoryController";
+import { addFavoriteMovie } from "../controllers/favoriteMoviesController";
+import { addRating } from "../controllers/ratingController";
 
 const router = Router();
 
-// Lấy danh sách phim
-router.get("/", getMovies);
+router.get("/", getAllMovies);
+router.get("/:id", getMovieDetails);
+router.get("/:id/episodes", getEpisodesByMovie);
+router.get("/search/:keyword", searchMovies);
 
-// Lấy chi tiết phim theo ID
-router.get("/:id", getMovieById);
-
-// Thêm phim mới
-router.post("/", createMovie);
+router.post("/watch-history", saveWatchHistory);
+router.post("/favorites", addFavoriteMovie);
+router.post("/ratings", addRating);
 
 export default router;

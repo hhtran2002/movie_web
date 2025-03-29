@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
 import { User } from "./User";
 import { Movie } from "./Movie";
 
@@ -10,12 +10,14 @@ export class WatchHistory {
     @Column()
     ep_number!: number;
 
-    @Column()
-    watch_time!: number;
+    @Column({ type: "datetime2", nullable: true }) // Đảm bảo nullable
+    watch_time!: Date;
 
     @ManyToOne(() => User, (user) => user.watchHistories)
+    @JoinColumn({ name: "user_id" }) // Định nghĩa khóa ngoại rõ ràng
     user!: User;
 
     @ManyToOne(() => Movie, (movie) => movie.watchHistories)
+    @JoinColumn({ name: "movie_id" }) // Định nghĩa khóa ngoại rõ ràng
     movie!: Movie;
 }
