@@ -1,0 +1,59 @@
+/* frontend/src/styles/login.css */
+.home-container {
+  width: 100vw; /* Chiếm toàn bộ chiều rộng màn hình */
+  height: 100vh; /* Chiếm toàn bộ chiều cao màn hình */
+  background-color: #1e1e1e;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Căn giữa nội dung */
+  align-items: center;
+  overflow: hidden;
+}
+
+h2 {
+  margin-bottom: 40px;
+  font-size: 48px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: normal;
+  color: #333;
+  font-size: 28px;
+}
+
+input {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 28px;
+}
+
+button {
+  width: 100%;
+  padding: 20px;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #333;
+}
