@@ -1,0 +1,100 @@
+/* frontend/src/styles/login.css */
+.login-container {
+  width: 400px;
+  height: 500px;
+  background: linear-gradient(135deg, rgba(98, 93, 121, 0.5) 0%, rgba(167, 139, 255, 0.5) 100%); /* Gradient nửa trong suốt */
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 30px;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 2.5rem; /* 40px */
+  font-weight: bold;
+  color: #fff; /* Màu trắng để nổi bật trên nền gradient */
+}
+
+.social-login {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.social-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.5rem;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.login-container p {
+  margin: 10px 0;
+  font-size: 1rem;
+  color: #d1d1d1;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 300px; /* Giới hạn chiều rộng form */
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background-color: #f5f5d5; /* Màu nền của input giống trong hình */
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.forgot-password {
+  /* align-self: flex-end; */
+  color: #d1d1d1;
+  /* font-size: 0.9rem; */
+  /* text-decoration: none; */
+  /* margin: 10px 0; */
+}
+
+/* .forgot-password:hover {
+  text-decoration: underline;
+} */
+
+.sign-in-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #ff4081; /* Màu hồng của nút Sign In */
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.sign-in-btn:hover {
+  background-color: #e03570; /* Màu hồng đậm hơn khi hover */
+}
