@@ -1,5 +1,5 @@
-// frontend/src/pages/Login.tsx
 import React, { useState, FormEvent } from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import '../styles/login.css';
 
 const Login: React.FC = () => {
@@ -13,31 +13,38 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="login-container">
-      <h2>Đăng Nhập</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Mật khẩu:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Đăng Nhập</button>
-      </form>
+    <div className="login-page">
+      <div className="login-container">
+        <h2>Sign In</h2>
+        <p>or use your email</p>
+        <form className="login-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          {/* Replace <a> with <Link> */}
+          <Link to="/forgot-password" className="forgot-password">
+            Forgot Password?
+          </Link>
+          <button type="submit" className="sign-in-btn">
+            Sign In
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* background-color: #242424; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -68,8 +68,10 @@ button:focus-visible {
 
   /* frontend/src/index.css */
 body {
-  background-color: #1a1a1a; /* Màu đen giống trong hình */
+  background-image: url('/images/Background_dark.jpg');/* Màu đen giống trong hình */
   margin: 0;
   font-family: Arial, sans-serif;
 }
+
+
 }
