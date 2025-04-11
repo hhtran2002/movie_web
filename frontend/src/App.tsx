@@ -11,7 +11,7 @@ import MovieDetail from './pages/MovieDetail';
 const App: React.FC = () => {
   return (
     <div className="App">
-      {/* <Login /> */}
+      <Login />
       {/* <Register/> */}
       {/* <ForgotPassword/>
       <ResetPassword/> */}
