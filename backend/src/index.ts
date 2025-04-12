@@ -1,14 +1,14 @@
 import express from "express";
 import "reflect-metadata";
-import { createConnection } from "typeorm";
+import { AppDataSource } from "../src/config/db";
 import authRoutes from "./routes/authRoutes";
-import movieRoutes from "./routes/movieRoutes"; // Import tuyến đường phim
+import movieRoutes from "./routes/movieRoutes";
 
 const app = express();
-app.use(express.json()); // Middleware để parse JSON
+app.use(express.json());
 
 // Kết nối database
-createConnection()
+AppDataSource.initialize()
     .then(() => {
         console.log("✅ Kết nối SQL Server thành công!");
     })
@@ -16,7 +16,7 @@ createConnection()
 
 // Định tuyến API
 app.use("/api/auth", authRoutes);
-app.use("/api/movies", movieRoutes); // 🔥 Thêm dòng này để API hoạt động
+app.use("/api/movies", movieRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

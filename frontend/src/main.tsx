@@ -1,15 +1,19 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { GoogleOAuthProvider } from '@react-oauth/google'; // Import GoogleOAuthProvider
+import { BrowserRouter } from 'react-router-dom'; // 🟢 Import thêm cái này
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
 import './index.css';
 import App from './App.tsx';
 
-const clientId = 'YOUR_GOOGLE_CLIENT_ID'; // Replace with your Google Client ID from Google Cloud Console
+const clientId = 'YOUR_GOOGLE_CLIENT_ID'; // Thay bằng real client ID
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <GoogleOAuthProvider clientId={clientId}>
-      <App />
+      <BrowserRouter> {/* 🟢 Bọc ở đây để router hoạt động */}
+        <App />
+      </BrowserRouter>
     </GoogleOAuthProvider>
   </StrictMode>
 );

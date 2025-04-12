@@ -1,7 +1,7 @@
 /* frontend/src/styles/login.css */
 .login-container {
-  width: 400px;
-  height: 500px;
+  width: 500px;
+  height: 800px;
   background: linear-gradient(135deg, rgba(98, 93, 121, 0.5) 0%, rgba(167, 139, 255, 0.5) 100%); /* Gradient nửa trong suốt */
   color: #fff;
   text-align: center;
@@ -16,7 +16,7 @@
 
 h2 {
   margin-bottom: 20px;
-  font-size: 2.5rem; /* 40px */
+  font-size: 80px; /* 40px */
   font-weight: bold;
   color: #fff; /* Màu trắng để nổi bật trên nền gradient */
 }

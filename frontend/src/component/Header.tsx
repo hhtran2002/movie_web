@@ -1,29 +1,28 @@
-import React from "react";
-import "../styles/header.css";
+import React from 'react';
+import '../styles/header.css';
+import { Link } from 'react-router-dom';
+
 const Header: React.FC = () => {
   return (
     <header className="header">
-      {/* Logo */}
       <div className="logo">LOGO</div>
-
-      {/* Menu */}
       <nav className="nav">
-        <a href="#">Trang Chủ</a>
-        <a href="#">Thể Loại</a>
-        <a href="#">Phim Bộ</a>
-        <a href="#">Phim Lẻ</a>
+        <Link to="/">Trang Chủ</Link>
+        <Link to="/categories">Thể Loại</Link>
+        <Link to="/series">Phim Bộ</Link>
+        <Link to="/movies">Phim Lẻ</Link>
       </nav>
-
-      {/* Search Bar */}
       <div className="search-bar">
         <input type="text" placeholder="Tìm kiếm..." />
         <button>🔍</button>
       </div>
-
-      {/* Đăng nhập & Đăng ký */}
       <div className="auth-buttons">
-        <button className="login-btn">Đăng Nhập</button>
-        <button className="register-btn">Đăng Ký</button>
+        <Link to="/login">
+          <button className="login-btn-header">Đăng Nhập</button>
+        </Link>
+        <Link to="/register">
+          <button className="register-btn-header">Đăng Ký</button>
+        </Link>
       </div>
     </header>
   );

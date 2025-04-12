@@ -24,10 +24,10 @@
 
 .slider-container {
   display: flex;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.5s ease-in-out; /* Hiệu ứng trượt mượt mà */
+  transition: transform 0.5s ease-in-out;
+  transform: translateX(var(--slider-offset, 0%));
 }
+
 
 .slider-image {
   width: 100%;

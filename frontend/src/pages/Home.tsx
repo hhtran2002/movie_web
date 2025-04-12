@@ -79,9 +79,10 @@ const Home: React.FC = () => {
           {"<"}
         </button>
         <div
-          className="slider-container"
-          style={{ transform: `translateX(-${sliderIndex * 100}%)` }}
-        >
+  className="slider-container"
+  style={{ "--slider-offset": `${-sliderIndex * 100}%` } as React.CSSProperties}
+>
+
           {movies.map((movie) => (
             <img
               key={movie.id}

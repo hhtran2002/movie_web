@@ -16,8 +16,7 @@ const Footer: React.FC = () => {
           <li><a href="/gamepedia">Gamepedia</a></li>
           <li><a href="/dnd-beyond">D&D Beyond</a></li>
           <li><a href="/cortex-rpg">Cortex RPG</a></li>
-          <li><a href="/muthead">Muthead</a></li>
-          <li><a href="/futhead">Futhead</a></li>
+         
         </ul>
       </div>
 
