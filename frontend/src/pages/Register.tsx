@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/register.css";
 
 const Register: React.FC = () => {
+  const navigate = useNavigate();
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -106,6 +109,8 @@ const Register: React.FC = () => {
       const data = await response.json();
       console.log("Đăng ký thành công:", data);
       alert("Đăng ký thành công!");
+
+      navigate("/login");
     } catch (error: any) {
       setErrors((prev) => ({
         ...prev,

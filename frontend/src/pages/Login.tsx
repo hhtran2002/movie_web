@@ -1,15 +1,31 @@
 import React, { useState, FormEvent } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import '../styles/login.css';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const navigate = useNavigate(); // dùng để chuyển hướng sau khi login
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log('Email:', email);
-    console.log('Password:', password);
+    try {
+      const response = await axios.post('http://localhost:5000/api/login', {
+        email,
+        password
+      });
+      
+      const data = response.data as { token: string };
+      localStorage.setItem('token', data.token);
+      
+
+      alert('Đăng nhập thành công!');
+      navigate('/'); // chuyển hướng về trang chủ hoặc dashboard
+
+    } catch (error: any) {
+      alert(error.response?.data?.message || 'Đăng nhập thất bại');
+    }
   };
 
   return (
@@ -36,7 +52,6 @@ const Login: React.FC = () => {
               required
             />
           </div>
-          {/* Replace <a> with <Link> */}
           <Link to="/forgot-password" className="forgot-password">
             Forgot Password?
           </Link>

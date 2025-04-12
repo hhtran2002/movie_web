@@ -1,7 +1,15 @@
 import React, { useState } from "react";
-import "../styles/register.css"; // Dùng chung CSS với trang đăng ký
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import "../styles/register.css";
 
 const ResetPassword: React.FC = () => {
+  const navigate = useNavigate();
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const token = searchParams.get("token");
+
   const [formData, setFormData] = useState({
     password: "",
     confirmPassword: "",
@@ -13,9 +21,12 @@ const ResetPassword: React.FC = () => {
     general: "",
   });
 
+  const [message, setMessage] = useState("");
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "", general: "" });
+    setMessage("");
   };
 
   const validateForm = () => {
@@ -26,7 +37,6 @@ const ResetPassword: React.FC = () => {
       general: "",
     };
 
-    // Validate password
     if (!formData.password) {
       newErrors.password = "Password is required";
       isValid = false;
@@ -35,7 +45,6 @@ const ResetPassword: React.FC = () => {
       isValid = false;
     }
 
-    // Validate confirm password
     if (!formData.confirmPassword) {
       newErrors.confirmPassword = "Please confirm your password";
       isValid = false;
@@ -51,29 +60,45 @@ const ResetPassword: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!validateForm()) {
+    // Kiểm tra token và mật khẩu
+    if (!validateForm() || !token) {
+      setErrors((prev) => ({
+        ...prev,
+        general: "Token and password are required",
+      }));
       return;
     }
 
     try {
-      // Gửi dữ liệu đến API (giả sử bạn có API đặt lại mật khẩu)
-      const response = await fetch("http://localhost:3000/api/reset-password", {
+      const response = await fetch("http://localhost:5000/api/reset-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          newPassword: formData.password,
+          token: token,
+        }),
       });
 
       if (!response.ok) {
-        throw new Error("Password reset failed");
+        const err = await response.json();
+        throw new Error(err.message || "Password reset failed");
       }
 
       const data = await response.json();
       console.log("Password reset successful:", data);
-      alert("Password reset successful!");
-    } catch (error) {
-      // setErrors({ ...errors, general: error.message || "An error occurred, please try again" });
+      setMessage("Password reset successful!");
+      setFormData({ password: "", confirmPassword: "" });
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    } catch (error: any) {
+      setErrors((prev) => ({
+        ...prev,
+        general: error.message || "An error occurred, please try again",
+      }));
     }
   };
 
@@ -81,6 +106,7 @@ const ResetPassword: React.FC = () => {
     <div className="register-container">
       <h2>RESET PASSWORD</h2>
       {errors.general && <p className="error">{errors.general}</p>}
+      {message && <p className="success">{message}</p>}
       <form className="register-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="password">Password</label>
