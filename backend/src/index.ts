@@ -1,10 +1,19 @@
 import express from "express";
+import cors from "cors"; // 👈 thêm dòng này
 import "reflect-metadata";
 import { AppDataSource } from "../src/config/db";
 import authRoutes from "./routes/authRoutes";
 import movieRoutes from "./routes/movieRoutes";
 
 const app = express();
+
+// ✅ Thêm cấu hình CORS
+app.use(cors({
+    origin: "http://localhost:5173", // Cho phép frontend React truy cập
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true
+}));
+
 app.use(express.json());
 
 // Kết nối database
@@ -15,7 +24,7 @@ AppDataSource.initialize()
     .catch((error) => console.log("❌ Lỗi kết nối SQL Server:", error));
 
 // Định tuyến API
-app.use("/api/auth", authRoutes);
+app.use("/api", authRoutes);
 app.use("/api/movies", movieRoutes);
 
 const PORT = process.env.PORT || 5000;

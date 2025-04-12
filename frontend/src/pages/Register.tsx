@@ -3,17 +3,17 @@ import "../styles/register.css";
 
 const Register: React.FC = () => {
   const [formData, setFormData] = useState({
-    fullName: "",
-    birthDate: "",
+    name: "",
     email: "",
+    phone: "",
     password: "",
     confirmPassword: "",
   });
 
   const [errors, setErrors] = useState({
-    fullName: "",
-    birthDate: "",
+    name: "",
     email: "",
+    phone: "",
     password: "",
     confirmPassword: "",
     general: "",
@@ -27,23 +27,17 @@ const Register: React.FC = () => {
   const validateForm = () => {
     let isValid = true;
     const newErrors = {
-      fullName: "",
-      birthDate: "",
+      name: "",
       email: "",
+      phone: "",
       password: "",
       confirmPassword: "",
       general: "",
     };
 
     // Kiểm tra họ tên
-    if (!formData.fullName.trim()) {
-      newErrors.fullName = "Họ tên không được để trống";
-      isValid = false;
-    }
-
-    // Kiểm tra ngày sinh
-    if (!formData.birthDate) {
-      newErrors.birthDate = "Vui lòng chọn ngày sinh";
+    if (!formData.name.trim()) {
+      newErrors.name = "Họ tên không được để trống";
       isValid = false;
     }
 
@@ -54,6 +48,15 @@ const Register: React.FC = () => {
       isValid = false;
     } else if (!emailRegex.test(formData.email)) {
       newErrors.email = "Email không hợp lệ";
+      isValid = false;
+    }
+
+    // Kiểm tra số điện thoại
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Số điện thoại không được để trống";
+      isValid = false;
+    } else if (!/^\d{10,11}$/.test(formData.phone)) {
+      newErrors.phone = "Số điện thoại không hợp lệ";
       isValid = false;
     }
 
@@ -87,8 +90,7 @@ const Register: React.FC = () => {
     }
 
     try {
-      // Gửi dữ liệu đến API (giả sử bạn có API đăng ký)
-      const response = await fetch("http://localhost:3000/api/register", {
+      const response = await fetch("http://localhost:5000/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -97,14 +99,18 @@ const Register: React.FC = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Đăng ký thất bại");
+        const errRes = await response.json();
+        throw new Error(errRes.message || "Đăng ký thất bại");
       }
 
       const data = await response.json();
       console.log("Đăng ký thành công:", data);
       alert("Đăng ký thành công!");
-    } catch (error) {
-      // setErrors({ ...errors, general: error.message || "Có lỗi xảy ra, vui lòng thử lại" });
+    } catch (error: any) {
+      setErrors((prev) => ({
+        ...prev,
+        general: error.message || "Có lỗi xảy ra, vui lòng thử lại",
+      }));
     }
   };
 
@@ -114,28 +120,16 @@ const Register: React.FC = () => {
       {errors.general && <p className="error">{errors.general}</p>}
       <form className="register-form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="fullName">Họ Tên</label>
+          <label htmlFor="name">Họ Tên</label>
           <input
-            id="fullName"
+            id="name"
             type="text"
-            name="fullName"
-            value={formData.fullName}
+            name="name"
+            value={formData.name}
             onChange={handleChange}
             required
           />
-          {errors.fullName && <p className="error">{errors.fullName}</p>}
-        </div>
-        <div className="form-group">
-          <label htmlFor="birthDate">Ngày sinh</label>
-          <input
-            id="birthDate"
-            type="date"
-            name="birthDate"
-            value={formData.birthDate}
-            onChange={handleChange}
-            required
-          />
-          {errors.birthDate && <p className="error">{errors.birthDate}</p>}
+          {errors.name && <p className="error">{errors.name}</p>}
         </div>
         <div className="form-group">
           <label htmlFor="email">Email</label>
@@ -148,6 +142,20 @@ const Register: React.FC = () => {
             required
           />
           {errors.email && <p className="error">{errors.email}</p>}
+        </div>
+        <div className="form-group">
+          <label htmlFor="phone">Số điện thoại</label>
+          <input
+            id="phone"
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            required
+            pattern="\d{10,11}"
+            placeholder="Nhập số điện thoại"
+          />
+          {errors.phone && <p className="error">{errors.phone}</p>}
         </div>
         <div className="form-group">
           <label htmlFor="password">Mật Khẩu</label>
