@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/moviedetail.css';
-import Header from "./Header";
+import Header from "../component/Header";
 
 const MovieDetail: React.FC = () => {
   return (
