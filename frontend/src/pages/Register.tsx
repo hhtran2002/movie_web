@@ -121,7 +121,7 @@ const Register: React.FC = () => {
 
   return (
     <div className="register-container">
-      <h2>ĐĂNG KÝ</h2>
+      <h3>ĐĂNG KÝ</h3>
       {errors.general && <p className="error">{errors.general}</p>}
       <form className="register-form" onSubmit={handleSubmit}>
         <div className="form-group">

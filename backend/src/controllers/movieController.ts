@@ -10,12 +10,57 @@ import { WatchHistory } from "../models/WatchHistory";
 export const getAllMovies = async (req: Request, res: Response): Promise<void> => {
     try {
         const movieRepo = AppDataSource.getRepository(Movie);
-        const movies = await movieRepo.find();
+        const movies = await movieRepo.find({
+          relations: ["genres", "categories", "countries"], // nếu cần
+        });
         res.status(200).json(movies);
     } catch (error) {
+        console.error("Error fetching movies", error);
         res.status(500).json({ message: "Lỗi server", error });
     }
 };
+
+export const getMovieById = async (req: Request, res: Response) => {
+  const movieRepository = AppDataSource.getRepository(Movie);
+  const movieId = parseInt(req.params.id);
+
+  try {
+    const movie = await movieRepository.findOne({
+      where: { id: movieId },
+      relations: ["categories", "genres", "episodes", "countries"],
+    });
+
+    if (!movie) {
+      return res.status(404).json({ message: "Không tìm thấy phim" });
+    }
+
+    res.json(movie);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Lỗi server" });
+  }
+};
+
+// Lấy danh sách phim theo category
+export const getMoviesByCategory = async (req: Request, res: Response): Promise<void> => {
+  try {
+      const categoryName = req.params.name;
+      const movieRepo = AppDataSource.getRepository(Movie);
+
+      const movies = await movieRepo
+      .createQueryBuilder("movie")
+      .innerJoinAndSelect("movie.categories", "category")
+      .where("category.name = :categoryName", { categoryName })
+      .getMany();
+
+
+      res.status(200).json(movies);
+  } catch (error) {
+      console.error("Error fetching movies by category", error);
+      res.status(500).json({ message: "Lỗi server", error });
+  }
+};
+
 
 // Lấy chi tiết phim theo ID
 export const getMovieDetails = async (req: Request, res: Response): Promise<void> => {
@@ -85,6 +130,7 @@ export const searchMovies = async (req: Request, res: Response): Promise<void> =
     }
 };
 
+// Thêm phim yêu thích
 export const addFavoriteMovie = async (req: Request, res: Response): Promise<void> => {
     try {
         const { user_id, movie_id } = req.body;
@@ -98,6 +144,7 @@ export const addFavoriteMovie = async (req: Request, res: Response): Promise<voi
     }
 };
 
+// Thêm đánh giá
 export const addRating = async (req: Request, res: Response): Promise<void> => {
     try {
         const { user_id, movie_id, rating, review } = req.body;
@@ -111,6 +158,7 @@ export const addRating = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
+// Lưu lịch sử xem phim
 export const saveWatchHistory = async (req: Request, res: Response): Promise<void> => {
     try {
         const { user_id, movie_id, ep_number, watch_time } = req.body;

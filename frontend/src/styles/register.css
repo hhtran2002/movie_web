@@ -1,22 +1,23 @@
 /* frontend/src/styles/register.css */
 .register-container {
   width: 500px;
-  height: 800px; /* Cao hơn một chút so với login vì form có nhiều trường hơn */
+  height: 750px; /* Cao hơn một chút so với login vì form có nhiều trường hơn */
   background: linear-gradient(135deg, rgba(98, 93, 121, 0.5) 0%, rgba(167, 139, 255, 0.5) 100%); /* Gradient giống login */
   color: #fff;
   text-align: center;
-  padding: 20px;
+  /* padding: 20px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   border-radius: 30px;
+  margin-left: 260px;
 }
 
 h2 {
   margin-bottom: 20px;
-  font-size: 80px; /* 40px, giống login */
+  font-size: 50px; /* 40px, giống login */
   font-weight: bold;
   color: #fff; /* Màu trắng để nổi bật trên nền gradient */
 }

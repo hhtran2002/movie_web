@@ -1,0 +1,173 @@
+/* Main container styles */
+.video-container {
+  width: 1280px;
+  background-color: #121212;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+    "Helvetica Neue", sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Video placeholder */
+.video-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 18px;
+}
+
+/* Episodes and comments section */
+.episodes-comments-section {
+  padding: 0;
+}
+
+/* Tab navigation */
+.tab-navigation {
+  display: flex;
+  border-bottom: 1px solid #333;
+  padding: 0 20px;
+}
+
+.tab-button {
+  padding: 16px 24px;
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+  font-weight: 500;
+}
+
+.tab-button.active {
+  color: white;
+}
+
+.tab-button.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #e53e3e;
+}
+
+/* Content area */
+.tab-content {
+  padding: 24px 32px;
+}
+
+/* Comments section */
+.comments-header {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.comment-input-container {
+  display: flex;
+  margin-bottom: 30px;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #333;
+  margin-right: 16px;
+  flex-shrink: 0;
+}
+
+.comment-input-wrapper {
+  position: relative;
+  flex-grow: 1;
+}
+
+.comment-input {
+  width: 900px;
+  padding: 12px 100px 12px 16px;
+  background-color: #222;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+}
+
+.comment-input::placeholder {
+  color: #777;
+}
+
+.comment-button {
+  position: absolute;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #e53e3e;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Comment items */
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.comment-item {
+  display: flex;
+  gap: 16px;
+}
+
+.comment-content {
+  flex-grow: 1;
+}
+
+.comment-author {
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 6px;
+  margin-left: 10px;
+
+}
+
+.comment-text {
+  color: #ddd;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Episodes section */
+.episodes {
+  padding: 0;
+}
+
+.episodes h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.episode-item {
+  padding: 16px;
+  border: 1px solid #333;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.episode-item:hover {
+  background-color: #222;
+}

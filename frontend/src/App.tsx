@@ -8,7 +8,8 @@ import ForgotPassword from './pages/Forgot-password';
 import ResetPassword from './pages/Reset-password';
 import Home from './pages/Home';
 import Footer from './component/Footer';
-// import MovieDetail from './pages/MovieDetail';
+import MovieDetail from './pages/MovieDetail';
+import Videoplayer from './pages/Video-player'
 
 const App: React.FC = () => {
   return (
@@ -20,10 +21,12 @@ const App: React.FC = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        {/* <Route path="/movie/:id" element={<MovieDetail />} /> */}
+        <Route path="/movies/:id" element={<MovieDetail />} />  
        
       </Routes>
-      <Footer/>
+      {/* <Footer/> */}
+      {/* <Videoplayer/> */}
+      
     </div>
   );
 };webkitURL

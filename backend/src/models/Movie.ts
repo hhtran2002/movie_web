@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable } from "typeorm";
 import { Genre } from "./Genre";
 import { Category } from "./Category";
 import { Country } from "./Country";
@@ -39,8 +39,9 @@ export class Movie {
       genres!: Genre[];
 
       // Thêm quan hệ OneToMany với Category
-    @OneToMany(() => Category, (category) => category.movie)
-    categories!: Category[];
+      @ManyToMany(() => Category, { cascade: true })
+      @JoinTable()
+      categories!: Category[];
 
     @OneToMany(() => Country, (country) => country.movie) // Thêm dòng này
     countries!: Country[];
