@@ -1,16 +1,16 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom"; 
 import { useEffect, useState } from "react";
 import "../styles/moviedetail.css";
+
+interface Country {
+  id: number;
+  name: string;
+}
 
 interface Episode {
   id: number;
   movie: { id: number };
   ep_number: number;
-}
-
-interface Country {
-  id: number;
-  name: string;
 }
 
 interface Movie {
@@ -26,6 +26,13 @@ interface Movie {
   countries?: Country[];
   episodes?: Episode[];
 }
+
+const extractYouTubeId = (url: string): string => {
+  const match = url.match(
+    /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+  );
+  return match ? match[1] : "";
+};
 
 const MovieDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -80,12 +87,33 @@ const MovieDetail: React.FC = () => {
           <strong>Điểm trung bình:</strong>{" "}
           {movie.average_rating ? movie.average_rating.toFixed(1) : "Chưa có đánh giá"}
         </p>
-        <p>
-          <strong>Trailer:</strong>{" "}
-          <a href={movie.trailer_url} target="_blank" rel="noopener noreferrer">
-            Xem trailer
-          </a>
-        </p>
+
+        {/* Nhúng trailer */}
+        {movie.trailer_url && extractYouTubeId(movie.trailer_url) ? (
+          <div className="trailer-container">
+            <strong>Trailer:</strong>
+            <div className="trailer-video">
+              <iframe
+                width="100%"
+                height="400"
+                src={`https://www.youtube.com/embed/${extractYouTubeId(movie.trailer_url)}`}
+                title="Trailer"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+        ) : (
+          <p><strong>Trailer:</strong> Không có trailer</p>
+        )}
+
+        {/* ✅ Nút xem phim */}
+        <div className="watch-button-container">
+          <Link to={`/watch/${movie.id}`} className="watch-button">
+            🎬 Xem phim
+          </Link>
+        </div>
       </div>
     </div>
   );

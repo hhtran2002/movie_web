@@ -9,26 +9,25 @@ import ResetPassword from './pages/Reset-password';
 import Home from './pages/Home';
 import Footer from './component/Footer';
 import MovieDetail from './pages/MovieDetail';
-import Videoplayer from './pages/Video-player'
+import Videoplayer from './pages/Video-player';
 
 const App: React.FC = () => {
   return (
     <div className="App">
       <Header />
       <Routes>
-      <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/movies/:id" element={<MovieDetail />} />  
-       
+        <Route path="/movies/:id" element={<MovieDetail />} /> {/* Chi tiết phim */}
+        <Route path="/watch/:id" element={<Videoplayer />} />
+ {/* Xem phim */}
       </Routes>
-      {/* <Footer/> */}
-      {/* <Videoplayer/> */}
-      
+      <Footer />
     </div>
   );
-};webkitURL
+};
 
 export default App;

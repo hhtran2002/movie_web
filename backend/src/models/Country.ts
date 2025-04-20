@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from "typeorm";
 import { Movie } from "./Movie";
 
 @Entity()
@@ -10,6 +10,6 @@ export class Country {
     @Column()
     name!: string;
 
-    @ManyToOne(() => Movie, (movie) => movie.countries)
-    movie!: Movie;
+    @ManyToMany(() => Movie, (movie) => movie.countries)
+    movies!: Movie[];
 }

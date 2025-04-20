@@ -1,15 +1,12 @@
-/* Main container styles */
 .video-container {
   width: 1280px;
   background-color: #121212;
   color: white;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
-    "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* Video placeholder */
 .video-placeholder {
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -21,12 +18,7 @@
   font-size: 18px;
 }
 
-/* Episodes and comments section */
-.episodes-comments-section {
-  padding: 0;
-}
-
-/* Tab navigation */
+/* Tabs */
 .tab-navigation {
   display: flex;
   border-bottom: 1px solid #333;
@@ -58,12 +50,11 @@
   background-color: #e53e3e;
 }
 
-/* Content area */
 .tab-content {
   padding: 24px 32px;
 }
 
-/* Comments section */
+/* Comments */
 .comments-header {
   font-size: 22px;
   font-weight: 600;
@@ -118,7 +109,6 @@
   cursor: pointer;
 }
 
-/* Comment items */
 .comment-list {
   display: flex;
   flex-direction: column;
@@ -139,7 +129,6 @@
   font-size: 16px;
   margin-bottom: 6px;
   margin-left: 10px;
-
 }
 
 .comment-text {
@@ -148,11 +137,7 @@
   line-height: 1.5;
 }
 
-/* Episodes section */
-.episodes {
-  padding: 0;
-}
-
+/* Episodes */
 .episodes h3 {
   font-size: 22px;
   font-weight: 600;

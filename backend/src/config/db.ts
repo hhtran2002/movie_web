@@ -21,6 +21,7 @@ export const AppDataSource = new DataSource({
     options: {
         encrypt: false, //Nếu SQL Server yêu cầu SSL thì đặt là true
         enableArithAbort: true,
+       
     },
 }
 );

@@ -1,19 +1,82 @@
-"use client"
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import "../styles/video-player.css";
 
-import { useState } from "react"
-import "../styles/video-player.css"
+const extractYouTubeId = (url: string): string => {
+  const match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  return match ? match[1] : "";
+};
 
 const VideoPlayer = () => {
-  const [activeTab, setActiveTab] = useState("comments")
+  const { id } = useParams<{ id: string }>();
+  const [activeTab, setActiveTab] = useState("comments");
+  const [movieDetails, setMovieDetails] = useState<any>(null);
+  const [currentEpisodeUrl, setCurrentEpisodeUrl] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchMovieDetails = async () => {
+      try {
+        setLoading(true);
+        console.log(`Fetching movie details for ID: ${id}`);
+        const response = await fetch(`/api/movies/${id}`); // Sửa từ /api/${id} thành /api/movies/${id}
+        console.log('Response status:', response.status);
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`);
+        }
+        const data = await response.json();
+        console.log('API response:', data);
+        setMovieDetails(data);
+    
+        if (data.episodes?.length > 0) {
+          setCurrentEpisodeUrl(data.episodes[0].ep_link);
+          console.log('Episode link:', data.episodes[0].ep_link);
+        } else {
+          setCurrentEpisodeUrl(data.trailer_url);
+          console.log('Trailer URL:', data.trailer_url);
+        }
+        console.log('Current Episode URL:', currentEpisodeUrl);
+      } catch (error) {
+        console.error("Error fetching movie details:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    if (id) fetchMovieDetails();
+  }, [id]);
+  if (loading) {
+    return <div className="loading">Loading movie details...</div>;
+  }
 
   return (
     <div className="video-container">
-      {/* Thay thế trình phát video bằng div */}
-      <div className="video-placeholder">
-        <p>Đây là div thay thế trình phát video</p>
-      </div>
+    {currentEpisodeUrl ? (
+      (() => {
+        const youtubeId = extractYouTubeId(currentEpisodeUrl);
+        if (!youtubeId) {
+          return <div>Link video không hợp lệ</div>;
+        }
+        return (
+          <div className="video-placeholder">
+            <iframe
+              width="100%"
+              height="500"
+              src={`https://www.youtube.com/embed/${youtubeId}`}
+              frameBorder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              title="YouTube video player"
+            ></iframe>
+          </div>
+        );
+      })()
+    ) : (
+      <div>Không có video để hiển thị</div>
+    )}
 
-      {/* Tab Navigation */}
+      {/* Tabs */}
       <div className="tab-navigation">
         <button
           className={`tab-button ${activeTab === "episodes" ? "active" : ""}`}
@@ -29,29 +92,35 @@ const VideoPlayer = () => {
         </button>
       </div>
 
-      {/* Tab Content */}
       <div className="tab-content">
         {activeTab === "episodes" && (
           <div className="episodes">
             <h3>Episodes</h3>
-            {/* Ví dụ danh sách episodes */}
-            <div className="episode-item">
-              <p>Episode 1</p>
-            </div>
-            <div className="episode-item">
-              <p>Episode 2</p>
-            </div>
-            <div className="episode-item">
-              <p>Episode 3</p>
-            </div>
+            {movieDetails?.episodes?.map((episode: any, index: number) => {
+              const episodeId = extractYouTubeId(episode.ep_link);
+              const isSelected = currentEpisodeUrl === episode.ep_link;
+
+              return (
+                <div
+                  key={index}
+                  className={`episode-item ${isSelected ? "selected" : ""}`}
+                  onClick={() => setCurrentEpisodeUrl(episode.ep_link)}
+                >
+                  <img
+                    src={`https://img.youtube.com/vi/${episodeId}/hqdefault.jpg`}
+                    alt={`Episode ${episode.ep_number}`}
+                    className="episode-thumbnail"
+                  />
+                  <p>Episode {episode.ep_number}</p>
+                </div>
+              );
+            })}
           </div>
         )}
 
         {activeTab === "comments" && (
           <div className="comments">
             <h3 className="comments-header">Comments (124)</h3>
-
-            {/* Comment input */}
             <div className="comment-input-container">
               <div className="user-avatar"></div>
               <div className="comment-input-wrapper">
@@ -60,8 +129,7 @@ const VideoPlayer = () => {
               </div>
             </div>
 
-            {/* Comment list */}
-            {/* <div className="comment-list">
+            <div className="comment-list">
               <div className="comment-item">
                 <div className="user-avatar"></div>
                 <div className="comment-content">
@@ -69,7 +137,6 @@ const VideoPlayer = () => {
                   <p className="comment-text">Great movie! I loved the special effects.</p>
                 </div>
               </div>
-
               <div className="comment-item">
                 <div className="user-avatar"></div>
                 <div className="comment-content">
@@ -77,12 +144,12 @@ const VideoPlayer = () => {
                   <p className="comment-text">The storyline was amazing, can't wait for the sequel!</p>
                 </div>
               </div>
-            </div> */}
+            </div>
           </div>
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default VideoPlayer
+export default VideoPlayer;

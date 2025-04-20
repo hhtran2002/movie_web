@@ -34,16 +34,17 @@ export class Movie {
     @Column()
     trailer_url!: string;
 
-      // Thêm quan hệ OneToMany với Genre
-      @OneToMany(() => Genre, (genre) => genre.movie)
-      genres!: Genre[];
+    @ManyToMany(() => Genre, (genre) => genre.movies, { cascade: true })
+    @JoinTable()
+    genres!: Genre[];
 
       // Thêm quan hệ OneToMany với Category
-      @ManyToMany(() => Category, { cascade: true })
-      @JoinTable()
-      categories!: Category[];
+    @ManyToMany(() => Category, { cascade: true })
+    @JoinTable()
+    categories!: Category[];
 
-    @OneToMany(() => Country, (country) => country.movie) // Thêm dòng này
+    @ManyToMany(() => Country, (country) => country.movies, { cascade: true })
+    @JoinTable()
     countries!: Country[];
 
     @OneToMany(() => Episode, (episode) => episode.movie)
