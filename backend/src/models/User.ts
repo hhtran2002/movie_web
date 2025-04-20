@@ -3,7 +3,8 @@ import { UserType } from "./UserType";
 import { Rating } from "./Rating";
 import { WatchHistory } from "./WatchHistory";
 import { FavoriteMovies } from "./FavoriteMovies";
-import { Token } from "./Token"; // Import Token model
+import { Token } from "./Token";
+import { Comment } from "./Comment"; // Thêm import Comment
 
 @Entity()
 export class User {
@@ -35,12 +36,14 @@ export class User {
     favoriteMovies!: FavoriteMovies[];
 
     @OneToMany(() => Token, (token) => token.user)
-    tokens!: Token[];  // Thêm quan hệ với bảng Token
+    tokens!: Token[];
 
-     // Thêm các cột cho reset mật khẩu
-     @Column({ nullable: true })
-     resetToken?: string;
- 
-     @Column({ type: "datetime", nullable: true })
-     resetTokenExpires?: Date;
+    @OneToMany(() => Comment, (comment) => comment.user)
+    comments!: Comment[];
+
+    @Column({ nullable: true })
+    resetToken?: string;
+
+    @Column({ type: "datetime", nullable: true })
+    resetTokenExpires?: Date;
 }

@@ -7,6 +7,7 @@ import { Episode } from "./Episode";
 import { Rating } from "./Rating";
 import { WatchHistory } from "./WatchHistory";
 import { FavoriteMovies } from "./FavoriteMovies";
+import { Comment } from "./Comment"; // Thêm import Comment
 
 @Entity()
 export class Movie {
@@ -38,7 +39,6 @@ export class Movie {
     @JoinTable()
     genres!: Genre[];
 
-      // Thêm quan hệ OneToMany với Category
     @ManyToMany(() => Category, { cascade: true })
     @JoinTable()
     categories!: Category[];
@@ -58,4 +58,7 @@ export class Movie {
 
     @OneToMany(() => FavoriteMovies, (favoriteMovie) => favoriteMovie.movie)
     favoriteMovies!: FavoriteMovies[];
+
+    @OneToMany(() => Comment, (comment) => comment.movie)
+    comments!: Comment[];
 }

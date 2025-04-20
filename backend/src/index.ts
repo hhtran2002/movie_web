@@ -4,6 +4,7 @@ import "reflect-metadata";
 import { AppDataSource } from "../src/config/db";
 import authRoutes from "./routes/authRoutes";
 import movieRoutes from "./routes/movieRoutes";
+import adminRouter from "./routes/adminRouter";
 
 const app = express();
 
@@ -26,7 +27,7 @@ AppDataSource.initialize()
 // Định tuyến API
 app.use("/api", authRoutes);
 app.use("/api/movies", movieRoutes);
-
+app.use("/api/admin", adminRouter);
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`🚀 Server đang chạy tại http://localhost:${PORT}`);
