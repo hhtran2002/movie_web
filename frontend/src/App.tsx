@@ -22,10 +22,9 @@ const App: React.FC = () => {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/movies/:id" element={<MovieDetail />} />  
-       
+        <Route path="/watch/:id" element={<Videoplayer />} />
       </Routes>
-      {/* <Footer/> */}
-      {/* <Videoplayer/> */}
+      <Footer/>
       
     </div>
   );

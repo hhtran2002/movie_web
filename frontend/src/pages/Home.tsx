@@ -1,49 +1,26 @@
 import React, { useState, useEffect } from "react";
-import "../styles/home.css"; // Import file CSS
+import "../styles/home.css";
 import { useNavigate } from "react-router-dom";
 
-// import Header from "./Header";
-// import Footer from "./Footer";
 
 interface Movie {
   id: number;
   name: string;
   thumbnail: string;
+  total_ep: number
 
 }
 const Home: React.FC = () => {
-  // const movies = [
-  //   { id: 1, image: "/images/movie1.png" },
-  //   { id: 2, image: "/images/movie2.png" },
-  //   { id: 3, image: "/images/movie3.png" },
-  //   { id: 4, image: "/images/movie4.png" },
-  // ];
-
-  // const phimBo = [
-  //   { id: 1, image: "/images/movie1.png" },
-  //   { id: 2, image: "/images/movie2.png" },
-  //   { id: 3, image: "/images/movie3.png" },
-  //   { id: 4, image: "/images/movie4.png" },
-  // ];
-
-  // const phimLe = [
-  //   { id: 1, image: "/images/movie1.png" },
-  //   { id: 2, image: "/images/movie2.png" },
-  //   { id: 3, image: "/images/movie3.png" },
-  //   { id: 4, image: "/images/movie4.png" },
-  // ];
-
-  // const [sliderIndex, setSliderIndex] = useState(0);
-  // const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+ 
   const navigate = useNavigate();
 
   const [movies, setMovies] = useState<Movie[]>([]);
   const [phimBo, setPhimBo] = useState<Movie[]>([]);
   const [phimLe, setPhimLe] = useState<Movie[]>([]);
-  // const [thinhHanh, setThinhHanh] = useState<Movie[]>([]);
   const [sliderIndex, setSliderIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchSlider = async () => {
@@ -70,10 +47,36 @@ const Home: React.FC = () => {
       }
     };
 
+    const fetchPhimLe = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/movies/phimle");
+        if (!res.ok) throw new Error("Lỗi khi lấy phim lẻ");
+        const data = await res.json();
+        setPhimLe(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error("Lỗi khi lấy phim lẻ:", error);
+        setPhimLe([]);
+      }
+    };
+
+    const fetchPhimBo = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/movies/phimbo");
+        if (!res.ok) throw new Error("Lỗi khi lấy phim bộ");
+        const data = await res.json();
+        setPhimBo(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error("Lỗi khi lấy phim bộ:", error);
+        setPhimBo([]);
+      }
+    };
+
     const fetchData = async () => {
       setIsLoading(true);
       await Promise.all([
         fetchSlider(),
+        fetchPhimLe(),
+        fetchPhimBo(),
         fetchCategory("Phim bộ", setPhimBo),
         fetchCategory("Phim lẻ", setPhimLe),
       ]);
@@ -176,7 +179,7 @@ const Home: React.FC = () => {
         <div className="movie-list">
           {phimBo.length > 0 ? (
             phimBo.map((movie) => (
-              <div key={movie.id} className="movie-item">
+              <div key={movie.id} className="movie-item" onClick={() => navigate(`/movies/${movie.id}`)} style={{ cursor: "pointer" }}>
                 <img src={movie.thumbnail} alt="Phim" className="movie-thumbnail" />
               </div>
             ))
@@ -191,7 +194,7 @@ const Home: React.FC = () => {
         <div className="movie-list">
           {phimLe.length > 0 ? (
             phimLe.map((movie) => (
-              <div key={movie.id} className="movie-item">
+              <div key={movie.id} className="movie-item" onClick={() => navigate(`/movies/${movie.id}`)} style={{ cursor: "pointer" }}>
                 <img src={movie.thumbnail} alt="Phim" className="movie-thumbnail" />
               </div>
             ))

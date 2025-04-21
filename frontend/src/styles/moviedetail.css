@@ -3,13 +3,29 @@
   color: white;
   padding: 40px;
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+  /* flex-direction: row; */
   justify-content: center;
   align-items: flex-start;
   overflow: hidden;
   background-size: cover;
   background-position: center;
   min-height: 100vh;
+}
+
+.top-section {
+  display: flex;
+  flex-direction: row;
+  gap: 40px; /* tạo khoảng cách giữa poster và info */
+  margin-bottom: 40px;
+}
+
+.movie-trailer {
+  width: 100%;
+  padding: 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.05); /* nền nhẹ */
 }
 
 /* Movie Poster Container */
@@ -126,4 +142,9 @@
 
 .episodes-list li a:hover {
   text-decoration: underline;
+}
+
+.movie-trailer iframe {
+  border: none;
+  outline: none;
 }

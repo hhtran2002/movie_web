@@ -5,6 +5,8 @@ import { Episode } from "../models/Episode";
 import { FavoriteMovies } from "../models/FavoriteMovies";
 import { Rating } from "../models/Rating";
 import { WatchHistory } from "../models/WatchHistory";
+import { pool } from "mssql";
+import { MoreThan } from "typeorm";
 
 // Lấy danh sách phim
 export const getAllMovies = async (req: Request, res: Response): Promise<void> => {
@@ -18,6 +20,60 @@ export const getAllMovies = async (req: Request, res: Response): Promise<void> =
         console.error("Error fetching movies", error);
         res.status(500).json({ message: "Lỗi server", error });
     }
+};
+
+
+export const getSingleEpisodeMovies = async (req: Request, res: Response): Promise<void>  => {
+  try {
+    const movieRepo = AppDataSource.getRepository(Movie);
+    
+    const movies = await movieRepo.find({
+      where: { total_ep: 1 },
+    });
+
+    res.status(200).json(movies);
+  } catch (error) {
+    console.error("Error fetching single-episode movies:", error);
+    res.status(500).json({ message: "Lỗi server", error });
+  }
+};
+
+export const getSeriesMovies = async (req: Request, res: Response): Promise<void>  => {
+  try {
+    const movieRepo = AppDataSource.getRepository(Movie);
+    
+    const movies = await movieRepo.find({
+      where: { total_ep: MoreThan(1) },
+    });
+
+    res.status(200).json(movies);
+  } catch (error) {
+    console.error("Error fetching series movies:", error);
+    res.status(500).json({ message: "Lỗi server", error });
+  }
+};
+
+export const getRatingById = async (req: Request, res: Response): Promise<void> => {
+  const movieId = parseInt(req.params.id);
+
+  try {
+    const ratingRepo = AppDataSource.getRepository(Rating);
+    
+    const ratings = await ratingRepo.find({
+      where: { movie: { id: movieId } },
+      relations: [ "user"]
+    });
+
+    if (ratings.length === 0) {
+      res.status(404).json({ message: "Không tìm thấy đánh giá cho phim này." });
+    } else {
+      res.status(200).json(ratings);
+    }
+
+  } catch (error) {
+    console.error("Lỗi khi lấy đánh giá:", error);
+    res.status(500).json({ message: "Lỗi server", error });
+  }
 };
 
 export const getMovieById = async (req: Request, res: Response) => {
