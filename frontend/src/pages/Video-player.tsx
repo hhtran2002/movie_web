@@ -2,10 +2,23 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "../styles/video-player.css";
 
+
 const extractYouTubeId = (url: string): string => {
   const match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
   return match ? match[1] : "";
 };
+
+interface Rating {
+  id: number;
+  review: string;
+  rating: number
+  user?: {
+    id: number;
+    name: string;
+  };
+}
+
+
 
 const VideoPlayer = () => {
   const { id } = useParams<{ id: string }>();
@@ -14,12 +27,20 @@ const VideoPlayer = () => {
   const [currentEpisodeUrl, setCurrentEpisodeUrl] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
 
+
+  const [danhGias, setDanhGia] = useState<Rating[]>([]);
+
+
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
         setLoading(true);
         console.log(`Fetching movie details for ID: ${id}`);
-        const response = await fetch(`/api/movies/${id}`); // Sửa từ /api/${id} thành /api/movies/${id}
+
+        // const response = await fetch(`/api/movies/${id}`); // Sửa từ /api/${id} thành /api/movies/${id}
+
+        const response = await fetch(`http://localhost:5000/api/movies/details/${id}`); // Sửa từ /api/${id} thành /api/movies/${id}
+
         console.log('Response status:', response.status);
         if (!response.ok) {
           const errorText = await response.text();
@@ -43,8 +64,24 @@ const VideoPlayer = () => {
         setLoading(false);
       }
     };
+
   
     if (id) fetchMovieDetails();
+
+    const fetchDanhGia = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/movies/danhgia/${id}`);
+        if (!res.ok) throw new Error("Lỗi khi lấy đánh giá");
+        const data = await res.json();
+        setDanhGia(data);
+      } catch (error) {
+        console.error("Lỗi khi lấy đánh giá:", error);
+      }
+    };
+  
+    if (id) fetchMovieDetails();
+    if (id) fetchDanhGia();
+
   }, [id]);
   if (loading) {
     return <div className="loading">Loading movie details...</div>;
@@ -62,7 +99,9 @@ const VideoPlayer = () => {
           <div className="video-placeholder">
             <iframe
               width="100%"
-              height="500"
+
+              height="750"
+
               src={`https://www.youtube.com/embed/${youtubeId}`}
               frameBorder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -120,9 +159,10 @@ const VideoPlayer = () => {
 
         {activeTab === "comments" && (
           <div className="comments">
-            <h3 className="comments-header">Comments (124)</h3>
+
+            <h3 className="comments-header">Comments </h3>
+
             <div className="comment-input-container">
-              <div className="user-avatar"></div>
               <div className="comment-input-wrapper">
                 <input type="text" className="comment-input" placeholder="Add a comment..." />
                 <button className="comment-button">Comment</button>
@@ -144,6 +184,18 @@ const VideoPlayer = () => {
                   <p className="comment-text">The storyline was amazing, can't wait for the sequel!</p>
                 </div>
               </div>
+
+              {danhGias.map((danhGia) => (
+                <div key={danhGia.id}>
+                  <div className="comment-item">
+                      <div className="comment-content">
+                        <p className="comment-author">{danhGia.user?.name}: {danhGia.review}</p>
+                        <p className="rating">⭐{danhGia.rating}/5</p>
+                      </div>
+                    </div>
+                </div>
+              ))}
+
             </div>
           </div>
         )}
@@ -152,4 +204,6 @@ const VideoPlayer = () => {
   );
 };
 
+
 export default VideoPlayer;
+

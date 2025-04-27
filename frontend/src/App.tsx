@@ -21,11 +21,19 @@ const App: React.FC = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+
         <Route path="/movies/:id" element={<MovieDetail />} /> {/* Chi tiết phim */}
         <Route path="/watch/:id" element={<Videoplayer />} />
  {/* Xem phim */}
       </Routes>
       <Footer />
+
+        {/* <Route path="/movies/:id" element={<MovieDetail />} />   */}
+        {/* <Route path="/watch/:id" element={<Videoplayer />} />
+      </Routes>
+      <Footer/> */}
+      
+
     </div>
   );
 };

@@ -1,6 +1,9 @@
+
 import { useParams, Link } from "react-router-dom"; 
+
 import { useEffect, useState } from "react";
 import "../styles/moviedetail.css";
+import star_icon from '/images/star_icon.png';
 
 interface Country {
   id: number;
@@ -45,7 +48,7 @@ const MovieDetail: React.FC = () => {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch(`http://localhost:5000/api/movies/${id}`);
+        const res = await fetch(`http://localhost:5000/api/movies/details/${id}`);
         if (!res.ok) throw new Error("Không thể tải thông tin phim");
         const data = await res.json();
         setMovie(data);
@@ -63,15 +66,44 @@ const MovieDetail: React.FC = () => {
   if (!movie) return <div className="not-found">Không tìm thấy phim</div>;
 
   return (
-    <div className="movie-detail">
-      <div className="movie-poster">
-        <img
-          src={movie.thumbnail}
-          alt={movie.name}
-          loading="lazy"
-          onError={(e) => (e.currentTarget.src = "path/to/placeholder-image.jpg")}
-        />
+    <div className="movie-detail" >
+      <div className="top-section">
+        <div className="movie-poster">
+          <img
+            src={movie.thumbnail}
+            alt={movie.name}
+            loading="lazy"
+            onError={(e) => (e.currentTarget.src = "path/to/placeholder-image.jpg")}
+          />
+        </div>
+        <div className="movie-info">
+          <h1>{movie.name}</h1>
+          <p><strong>Mô tả:</strong> {movie.description}</p>
+          <p><strong>Năm phát hành:</strong> {movie.release_year}</p>
+          <p><strong>Tổng số tập:</strong> {movie.total_ep}</p>
+          <p>
+            <strong>Quốc gia:</strong>{" "}
+            {movie.countries && movie.countries.length > 0
+              ? movie.countries.map((country) => country.name).join(", ")
+              : "Không xác định"}
+          </p>
+          <p>
+            <strong>Điểm trung bình:</strong>{" "}
+            <img src={star_icon} alt="" />
+            <img src={star_icon} alt="" />
+            <img src={star_icon} alt="" />
+            <img src={star_icon} alt="" />
+            <img src={star_icon} alt="" />
+            5/5 (122)
+          </p>
+          <div className="watch-button-container">
+          <Link to={`/watch/${movie.id}`} className="watch-button">
+            🎬 Xem phim
+          </Link>
+        </div>
+        </div>
       </div>
+
       <div className="movie-info">
         <h1>{movie.name}</h1>
         <p><strong>Mô tả:</strong> {movie.description}</p>
@@ -114,8 +146,22 @@ const MovieDetail: React.FC = () => {
             🎬 Xem phim
           </Link>
         </div>
+
+      <div className="movie-trailer">
+      <h2 style={{ color: 'white', marginBottom: '10px' }}>Trailer</h2>
+        <iframe
+          width="100%"
+          height="650"
+          src={`https://www.youtube.com/embed/${extractYouTubeId(movie.trailer_url)}`}
+          title="Trailer"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+
       </div>
-    </div>
+      </div>
+      </div>
   );
 };
 
