@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 import "../styles/moviedetail.css";
-import star_icon from '/images/star_icon.png';
+
 
 interface Country {
   id: number;
@@ -76,32 +76,7 @@ const MovieDetail: React.FC = () => {
             onError={(e) => (e.currentTarget.src = "path/to/placeholder-image.jpg")}
           />
         </div>
-        <div className="movie-info">
-          <h1>{movie.name}</h1>
-          <p><strong>Mô tả:</strong> {movie.description}</p>
-          <p><strong>Năm phát hành:</strong> {movie.release_year}</p>
-          <p><strong>Tổng số tập:</strong> {movie.total_ep}</p>
-          <p>
-            <strong>Quốc gia:</strong>{" "}
-            {movie.countries && movie.countries.length > 0
-              ? movie.countries.map((country) => country.name).join(", ")
-              : "Không xác định"}
-          </p>
-          <p>
-            <strong>Điểm trung bình:</strong>{" "}
-            <img src={star_icon} alt="" />
-            <img src={star_icon} alt="" />
-            <img src={star_icon} alt="" />
-            <img src={star_icon} alt="" />
-            <img src={star_icon} alt="" />
-            5/5 (122)
-          </p>
-          <div className="watch-button-container">
-          <Link to={`/watch/${movie.id}`} className="watch-button">
-            🎬 Xem phim
-          </Link>
-        </div>
-        </div>
+          
       </div>
 
       <div className="movie-info">
@@ -120,27 +95,9 @@ const MovieDetail: React.FC = () => {
           {movie.average_rating ? movie.average_rating.toFixed(1) : "Chưa có đánh giá"}
         </p>
 
-        {/* Nhúng trailer */}
-        {movie.trailer_url && extractYouTubeId(movie.trailer_url) ? (
-          <div className="trailer-container">
-            <strong>Trailer:</strong>
-            <div className="trailer-video">
-              <iframe
-                width="100%"
-                height="400"
-                src={`https://www.youtube.com/embed/${extractYouTubeId(movie.trailer_url)}`}
-                title="Trailer"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
-          </div>
-        ) : (
-          <p><strong>Trailer:</strong> Không có trailer</p>
-        )}
+        
 
-        {/* ✅ Nút xem phim */}
+        {/* Nút xem phim */}
         <div className="watch-button-container">
           <Link to={`/watch/${movie.id}`} className="watch-button">
             🎬 Xem phim
@@ -154,7 +111,7 @@ const MovieDetail: React.FC = () => {
           height="650"
           src={`https://www.youtube.com/embed/${extractYouTubeId(movie.trailer_url)}`}
           title="Trailer"
-          frameBorder="0"
+    
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         ></iframe>

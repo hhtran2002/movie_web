@@ -7,10 +7,12 @@ const Header: React.FC = () => {
     <header className="header">
       <div className="logo">LOGO</div>
       <nav className="nav">
+        <Link to="/admin">Admin</Link>
         <Link to="/">Trang Chủ</Link>
         <Link to="/categories">Thể Loại</Link>
         <Link to="/series">Phim Bộ</Link>
         <Link to="/movies">Phim Lẻ</Link>
+
       </nav>
       <div className="search-bar">
         <input type="text" placeholder="Tìm kiếm..." />
