@@ -1,0 +1,36 @@
+.add-movie-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.add-movie-form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.add-movie-form input,
+.add-movie-form textarea,
+.add-movie-form select {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.add-movie-form button {
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.add-movie-form button:hover {
+  background-color: #218838;
+}

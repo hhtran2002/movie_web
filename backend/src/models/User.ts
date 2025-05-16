@@ -2,9 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "ty
 import { UserType } from "./UserType";
 import { Rating } from "./Rating";
 import { WatchHistory } from "./WatchHistory";
-import { FavoriteMovies } from "./FavoriteMovies";
 import { Token } from "./Token";
-import { Comment } from "./Comment"; // Thêm import Comment
 
 @Entity()
 export class User {
@@ -32,14 +30,8 @@ export class User {
     @OneToMany(() => WatchHistory, (watchHistory) => watchHistory.user)
     watchHistories!: WatchHistory[];
 
-    @OneToMany(() => FavoriteMovies, (favoriteMovie) => favoriteMovie.user)
-    favoriteMovies!: FavoriteMovies[];
-
     @OneToMany(() => Token, (token) => token.user)
     tokens!: Token[];
-
-    @OneToMany(() => Comment, (comment) => comment.user)
-    comments!: Comment[];
 
     @Column({ nullable: true })
     resetToken?: string;

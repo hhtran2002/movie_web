@@ -53,7 +53,7 @@ import Register from './pages/Register';
 import ForgotPassword from './pages/Forgot-password';
 import ResetPassword from './pages/Reset-password';
 import Home from './pages/Home';
-import Footer from './component/Footer';
+
 import MovieDetail from './pages/MovieDetail';
 import Videoplayer from './pages/Video-player';
 import Admin from './pages/Admin';
@@ -74,7 +74,6 @@ const App: React.FC = () => {
         {/* ADMIN phải có dấu * để cho phép nested route */}
         <Route path="/admin/*" element={<Admin />} />
       </Routes>
-      <Footer />
     </div>
   );
 };

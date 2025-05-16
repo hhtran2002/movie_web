@@ -1,25 +1,23 @@
 import express from "express";
 import {
+  getAllMovies,
   createMovie,
   updateMovie,
   deleteMovie,
-  getAllUsers,
-  deleteUser,
-  deleteComment
+  createEpisode,
+  deleteEpisode
 } from "../controllers/adminController";
 
 const router = express.Router();
 
 // Movie management
+router.get("/movies", getAllMovies);
 router.post("/movies", createMovie);
 router.put("/movies/:id", updateMovie);
 router.delete("/movies/:id", deleteMovie);
 
-// User management
-router.get("/users", getAllUsers);
-router.delete("/users/:id", deleteUser);
-
-// Comment management
-router.delete("/comments/:id", deleteComment);
+// Episode management
+router.post("/episodes", createEpisode);
+router.delete("/episodes/:id", deleteEpisode);
 
 export default router;

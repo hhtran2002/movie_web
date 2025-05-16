@@ -9,7 +9,7 @@ export class Category {
     @Column()
     name!: string;
 
-    @Column({ nullable: true })
+    @Column()
     description!: string;
 
 }

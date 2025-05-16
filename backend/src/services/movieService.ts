@@ -2,7 +2,6 @@
 import { AppDataSource } from "../config/db";
 import { Movie } from "../models/Movie";
 import { Episode } from "../models/Episode";
-import { FavoriteMovies } from "../models/FavoriteMovies";
 import { Rating } from "../models/Rating";
 import { WatchHistory } from "../models/WatchHistory";
 import { MoreThan } from "typeorm";
@@ -53,19 +52,6 @@ export const searchMoviesService = async (keyword: string) => {
     .createQueryBuilder("movie")
     .where("movie.name LIKE :keyword", { keyword: `%${keyword}%` })
     .getMany();
-};
-
-export const addFavoriteMovieService = async (userId: number, movieId: number) => {
-  const favoriteRepo = AppDataSource.getRepository(FavoriteMovies);
-
-  const existed = await favoriteRepo.findOne({
-    where: { user: { id: userId }, movie: { id: movieId } }
-  });
-
-  if (existed) return null;
-
-  const favorite = favoriteRepo.create({ user: { id: userId }, movie: { id: movieId } });
-  return favoriteRepo.save(favorite);
 };
 
 export const addRatingService = async (userId: number, movieId: number, rating: number, review?: string) => {
