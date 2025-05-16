@@ -5,13 +5,14 @@ import {
   getEpisodeById,
   getMovieDetails,
   saveWatchHistory,
-  searchMovies,
+
   getMoviesByCategory,
   getSingleEpisodeMovies,
   getSeriesMovies,
   getRatingById,
   watchEpisode,
-  getEpisodesByMovie
+  getEpisodesByMovie,
+  search
 } from "../controllers/movieController";
 
 const router = express.Router();
@@ -30,7 +31,7 @@ router.get("/danhgia/:id", getRatingById);
 // --- POST Routes ---
 router.post("/ratings", addRating);
 router.post("/watch-history", saveWatchHistory);
-
+router.get("/search", search);
 // --- Route chung nhất ---
 router.get("/:id", getMovieDetails);
 

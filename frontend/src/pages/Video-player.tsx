@@ -1,119 +1,116 @@
+// src/components/VideoPlayer.tsx
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "../styles/video-player.css";
 
-
 const extractYouTubeId = (url: string): string => {
-  const match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  const match = url.match(
+    /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+  );
   return match ? match[1] : "";
 };
 
 interface Rating {
   id: number;
   review: string;
-  rating: number
-  user?: {
-    id: number;
-    name: string;
-  };
+  rating: number;
+  user?: { id: number; name: string };
 }
-
-
 
 const VideoPlayer = () => {
   const { id } = useParams<{ id: string }>();
-  const [activeTab, setActiveTab] = useState("comments");
+  const [activeTab, setActiveTab] = useState<"episodes" | "comments">("comments");
   const [movieDetails, setMovieDetails] = useState<any>(null);
   const [currentEpisodeUrl, setCurrentEpisodeUrl] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
 
-
   const [danhGias, setDanhGia] = useState<Rating[]>([]);
+  const [newReview, setNewReview] = useState<string>("");
+  const [newRating, setNewRating] = useState<number>(5);
 
+  // Fetch movie details
+  const fetchMovieDetails = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(`http://localhost:5000/api/movies/details/${id}`);
+      if (!res.ok) throw new Error(await res.text());
+      const data = await res.json();
+      setMovieDetails(data);
+      if (data.episodes?.length) {
+        setCurrentEpisodeUrl(data.episodes[0].ep_link);
+      } else {
+        setCurrentEpisodeUrl(data.trailer_url);
+      }
+    } catch (err) {
+      console.error("Error fetching movie details:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch comments & ratings
+  const fetchDanhGia = async () => {
+    try {
+      const res = await fetch(`http://localhost:5000/api/ratings/movie/${id}`);
+      if (!res.ok) throw new Error(await res.text());
+      const data: Rating[] = await res.json();
+      setDanhGia(data);
+    } catch (err) {
+      console.error("Error fetching ratings:", err);
+    }
+  };
+
+  // Submit new rating/comment
+  const handleSubmit = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`http://localhost:5000/api/ratings`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+        body: JSON.stringify({
+          movieId: Number(id),
+          rating: newRating,
+          review: newReview.trim(),
+        }),
+      });
+      if (!res.ok) throw new Error(await res.text());
+      setNewReview("");
+      setNewRating(5);
+      await fetchDanhGia();
+    } catch (err) {
+      console.error("Error submitting rating:", err);
+      alert("Không thể gửi đánh giá. Vui lòng thử lại.");
+    }
+  };
 
   useEffect(() => {
-    const fetchMovieDetails = async () => {
-      try {
-        setLoading(true);
-        console.log(`Fetching movie details for ID: ${id}`);
-
-        // const response = await fetch(`/api/movies/${id}`); // Sửa từ /api/${id} thành /api/movies/${id}
-
-        const response = await fetch(`http://localhost:5000/api/movies/details/${id}`); // Sửa từ /api/${id} thành /api/movies/${id}
-
-        console.log('Response status:', response.status);
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`);
-        }
-        const data = await response.json();
-        console.log('API response:', data);
-        setMovieDetails(data);
-    
-        if (data.episodes?.length > 0) {
-          setCurrentEpisodeUrl(data.episodes[0].ep_link);
-          console.log('Episode link:', data.episodes[0].ep_link);
-        } else {
-          setCurrentEpisodeUrl(data.trailer_url);
-          console.log('Trailer URL:', data.trailer_url);
-        }
-        console.log('Current Episode URL:', currentEpisodeUrl);
-      } catch (error) {
-        console.error("Error fetching movie details:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-  
-    if (id) fetchMovieDetails();
-
-    const fetchDanhGia = async () => {
-      try {
-        const res = await fetch(`http://localhost:5000/api/movies/danhgia/${id}`);
-        if (!res.ok) throw new Error("Lỗi khi lấy đánh giá");
-        const data = await res.json();
-        setDanhGia(data);
-      } catch (error) {
-        console.error("Lỗi khi lấy đánh giá:", error);
-      }
-    };
-  
-    if (id) fetchMovieDetails();
-    if (id) fetchDanhGia();
-
+    if (id) {
+      fetchMovieDetails();
+      fetchDanhGia();
+    }
   }, [id]);
-  if (loading) {
-    return <div className="loading">Loading movie details...</div>;
-  }
+
+  if (loading) return <div className="loading">Loading movie details...</div>;
+
+  const youtubeId = extractYouTubeId(currentEpisodeUrl);
 
   return (
     <div className="video-container">
-    {currentEpisodeUrl ? (
-      (() => {
-        const youtubeId = extractYouTubeId(currentEpisodeUrl);
-        if (!youtubeId) {
-          return <div>Link video không hợp lệ</div>;
-        }
-        return (
-          <div className="video-placeholder">
-            <iframe
-              width="100%"
-
-              height="750"
-
-              src={`https://www.youtube.com/embed/${youtubeId}`}
-              frameBorder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              title="YouTube video player"
-            ></iframe>
-          </div>
-        );
-      })()
-    ) : (
-      <div>Không có video để hiển thị</div>
-    )}
+      {youtubeId ? (
+        <div className="video-wrapper">
+          <iframe
+            src={`https://www.youtube.com/embed/${youtubeId}`}
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            title="YouTube video player"
+          />
+        </div>
+      ) : (
+        <div>Link video không hợp lệ</div>
+      )}
 
       {/* Tabs */}
       <div className="tab-navigation">
@@ -135,22 +132,21 @@ const VideoPlayer = () => {
         {activeTab === "episodes" && (
           <div className="episodes">
             <h3>Episodes</h3>
-            {movieDetails?.episodes?.map((episode: any, index: number) => {
-              const episodeId = extractYouTubeId(episode.ep_link);
-              const isSelected = currentEpisodeUrl === episode.ep_link;
-
+            {movieDetails.episodes?.map((ep: any) => {
+              const epId = extractYouTubeId(ep.ep_link);
+              const isSelected = currentEpisodeUrl === ep.ep_link;
               return (
                 <div
-                  key={index}
+                  key={ep.ep_number}
                   className={`episode-item ${isSelected ? "selected" : ""}`}
-                  onClick={() => setCurrentEpisodeUrl(episode.ep_link)}
+                  onClick={() => setCurrentEpisodeUrl(ep.ep_link)}
                 >
                   <img
-                    src={`https://img.youtube.com/vi/${episodeId}/hqdefault.jpg`}
-                    alt={`Episode ${episode.ep_number}`}
+                    src={`https://img.youtube.com/vi/${epId}/hqdefault.jpg`}
+                    alt={`Episode ${ep.ep_number}`}
                     className="episode-thumbnail"
                   />
-                  <p>Episode {episode.ep_number}</p>
+                  <p>Episode {ep.ep_number}</p>
                 </div>
               );
             })}
@@ -159,43 +155,46 @@ const VideoPlayer = () => {
 
         {activeTab === "comments" && (
           <div className="comments">
+            <h3 className="comments-header">User Reviews</h3>
 
-            <h3 className="comments-header">Comments </h3>
-
+            {/* Form thêm bình luận */}
             <div className="comment-input-container">
               <div className="comment-input-wrapper">
-                <input type="text" className="comment-input" placeholder="Add a comment..." />
-                <button className="comment-button">Comment</button>
+                <select
+                  value={newRating}
+                  onChange={(e) => setNewRating(Number(e.target.value))}
+                  className="rating-select"
+                >
+                  {[1, 2, 3, 4, 5].map((n) => (
+                    <option key={n} value={n}>
+                      {n} sao
+                    </option>
+                  ))}
+                </select>
+                <input
+                  type="text"
+                  className="comment-input"
+                  placeholder="Viết nhận xét..."
+                  value={newReview}
+                  onChange={(e) => setNewReview(e.target.value)}
+                />
+                <button className="comment-button" onClick={handleSubmit}>
+                  Gửi
+                </button>
               </div>
             </div>
 
+            {/* Danh sách bình luận */}
             <div className="comment-list">
-              <div className="comment-item">
-                <div className="user-avatar"></div>
-                <div className="comment-content">
-                  <p className="comment-author">User1</p>
-                  <p className="comment-text">Great movie! I loved the special effects.</p>
-                </div>
-              </div>
-              <div className="comment-item">
-                <div className="user-avatar"></div>
-                <div className="comment-content">
-                  <p className="comment-author">User2</p>
-                  <p className="comment-text">The storyline was amazing, can't wait for the sequel!</p>
-                </div>
-              </div>
-
-              {danhGias.map((danhGia) => (
-                <div key={danhGia.id}>
-                  <div className="comment-item">
-                      <div className="comment-content">
-                        <p className="comment-author">{danhGia.user?.name}: {danhGia.review}</p>
-                        <p className="rating">⭐{danhGia.rating}/5</p>
-                      </div>
-                    </div>
+              {danhGias.length === 0 && <p>Chưa có bình luận nào.</p>}
+              {danhGias.map((dg) => (
+                <div key={dg.id} className="comment-item">
+                  <div className="comment-author">
+                    {dg.user?.name || "Ẩn danh"} — ⭐{dg.rating}/5
+                  </div>
+                  <div className="comment-text">{dg.review}</div>
                 </div>
               ))}
-
             </div>
           </div>
         )}
@@ -204,6 +203,4 @@ const VideoPlayer = () => {
   );
 };
 
-
 export default VideoPlayer;
-

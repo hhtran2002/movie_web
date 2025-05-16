@@ -1,21 +1,43 @@
+/* video-player.css */
+
+/* Container chính: bỏ width cố định, cho phép 100% chiều ngang và giới hạn max-width */
 .video-container {
-  width: 1280px;
+  width: 100%;
+  max-width: 1280px;    /* hoặc 1200px nếu bạn muốn giới hạn như trước */
+  margin: 0 auto;
   background-color: #121212;
   color: white;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  max-width: 1200px;
-  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
+/* Wrapper cho iframe video, giữ tỉ lệ 16:9 và chiếm trọn chiều ngang của .video-container */
+.video-wrapper,
 .video-placeholder {
+  position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  padding-bottom: 56.25%; /* 9/16 = 0.5625 */
   background-color: #000;
+  overflow: hidden;
+}
+
+/* Khi là .video-placeholder (không có iframe) thì căn giữa text */
+.video-placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
   color: #999;
   font-size: 18px;
+}
+
+/* iframe nằm tuyệt đối để cover toàn bộ wrapper */
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
 }
 
 /* Tabs */
@@ -24,6 +46,7 @@
   border-bottom: 1px solid #333;
   padding: 0 20px;
 }
+
 
 .tab-button {
   padding: 16px 24px;

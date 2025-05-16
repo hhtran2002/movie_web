@@ -30,7 +30,6 @@ export const authenticate: RequestHandler = async (req, res, next) => {
     }
     authReq.user = user;
     next();  // tiếp tục qua controller
-    next();  // tiếp tục qua controller
   } catch (err) {
     res.status(401).json({ message: "Token không hợp lệ hoặc hết hạn" });
     return;

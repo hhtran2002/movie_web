@@ -88,3 +88,13 @@ export const getEpisodesByMovieService = async (movieId: number) => {
     order: { ep_number: "ASC" },
   });
 };
+
+export const searchMovies = async (query: string): Promise<Movie[]> => {
+  const movieRepo = AppDataSource.getRepository(Movie);
+  return movieRepo
+    .createQueryBuilder("movie")
+    .where("movie.title LIKE :q", { q: `%${query}%` })
+    .orWhere("movie.description LIKE :q", { q: `%${query}%` })
+    .orderBy("movie.title", "ASC")
+    .getMany();
+};
