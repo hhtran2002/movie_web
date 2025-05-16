@@ -1,0 +1,43 @@
+.history-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.history-container h2 {
+  margin-bottom: 16px;
+}
+
+.history-list {
+  list-style: none;
+  padding: 0;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+.history-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.history-link:hover {
+  text-decoration: underline;
+}
+
+.history-date {
+  color: #666;
+  font-size: 0.875rem;
+  margin-left: 12px;
+  white-space: nowrap;
+}

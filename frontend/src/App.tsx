@@ -58,6 +58,8 @@ import MovieDetail from './pages/MovieDetail';
 import Videoplayer from './pages/Video-player';
 import Admin from './pages/Admin';
 
+import Account     from './pages/Account';
+import History     from './pages/History';
 const App: React.FC = () => {
   return (
     <div className="App">
@@ -71,6 +73,9 @@ const App: React.FC = () => {
         <Route path="/movies/:id" element={<MovieDetail />} />
         <Route path="/watch/:id" element={<Videoplayer />} />
 
+        {/* Account & History */}
+        <Route path="/account"         element={<Account />} />
+        <Route path="/history"         element={<History />} />
         {/* ADMIN phải có dấu * để cho phép nested route */}
         <Route path="/admin/*" element={<Admin />} />
       </Routes>

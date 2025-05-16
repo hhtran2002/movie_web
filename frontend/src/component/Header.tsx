@@ -7,6 +7,8 @@ const Header: React.FC = () => {
     <header className="header">
       <div className="logo">LOGO</div>
       <nav className="nav">
+        <Link to="/account">Tài Khoản</Link>
+        <Link to="/history">Lịch Sử</Link>
         <Link to="/admin">Admin</Link>
         <Link to="/">Trang Chủ</Link>
 
