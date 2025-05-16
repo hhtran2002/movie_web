@@ -21,7 +21,7 @@ const Login: React.FC = () => {
       
 
       alert('Đăng nhập thành công!');
-      navigate('/profile'); // chuyển hướng về trang chủ hoặc dashboard
+      navigate('/account'); // chuyển hướng về trang chủ hoặc dashboard
 
     } catch (error: any) {
       alert(error.response?.data?.message || 'Đăng nhập thất bại');
