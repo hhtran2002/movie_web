@@ -10,6 +10,7 @@ export class UserController {
         id: u.id,
         username: u.name,
         email: u.email,
+        
       },
     });
   }

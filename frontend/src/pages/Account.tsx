@@ -14,13 +14,23 @@ const Account: React.FC = () => {
   const [user, setUser] = useState<UserInfo | null>(null);
 
   useEffect(() => {
-    axios
-      .get<{ user: UserInfo }>('/api/user/account')
-      .then(res => setUser(res.data.user))
-      .catch(err => {
-        console.error(err);
-        alert('❌ Không tải được thông tin tài khoản.');
-      });
+const token = localStorage.getItem('token'); // or your preferred storage/retrieval method
+axios.get<{ user: UserInfo }>("http://localhost:5000/api/user/account", {
+  headers: { Authorization: `Bearer ${token}` }
+})
+  .then(res => setUser(res.data.user))
+  .catch(err => {
+    console.error(err);
+    alert('❌ Không tải được thông tin tài khoản.');
+  });
+
+    // axios
+    //   .get<{ user: UserInfo }>('/account')
+    //   .then(res => setUser(res.data.user))
+    //   .catch(err => {
+    //     console.error(err);
+    //     alert('❌ Không tải được thông tin tài khoản.');
+    //   });
   }, []);
 
   if (!user) return <div className="account-container">Đang tải...</div>;
@@ -32,10 +42,7 @@ const Account: React.FC = () => {
         <p><strong>ID:</strong> {user.id}</p>
         <p><strong>Username:</strong> {user.username}</p>
         <p><strong>Email:</strong> {user.email}</p>
-        <p>
-          <strong>Ngày tạo:</strong>{' '}
-          {new Date(user.createdAt).toLocaleDateString()}
-        </p>
+        
       </div>
 
       {/* Nút dẫn đến lịch sử xem phim */}

@@ -1,5 +1,4 @@
-// backend/src/middleware/auth.ts
-import { Request, Response, NextFunction } from "express";
+import { RequestHandler } from "express";
 import jwt from "jsonwebtoken";
 import { AppDataSource } from "../config/db";
 import { User } from "../models/User";
@@ -8,14 +7,13 @@ export interface AuthRequest extends Request {
   user?: User;
 }
 
-export const authenticate = async (
-  req: AuthRequest,
-  res: Response,
-  next: NextFunction
-) => {
+export const authenticate: RequestHandler = async (req, res, next) => {
+  const authReq = req as unknown as AuthRequest;
   const authHeader = req.headers.authorization;
   if (!authHeader?.startsWith("Bearer ")) {
-    return res.status(401).json({ message: "Thiếu token xác thực" });
+    // Gọi res rồi return; — không return giá trị gì
+    res.status(401).json({ message: "Thiếu token xác thực" });
+    return;
   }
 
   const token = authHeader.split(" ")[1];
@@ -27,11 +25,14 @@ export const authenticate = async (
     const userRepo = AppDataSource.getRepository(User);
     const user = await userRepo.findOneBy({ id: payload.userId });
     if (!user) {
-      return res.status(401).json({ message: "Người dùng không tồn tại" });
+      res.status(401).json({ message: "Người dùng không tồn tại" });
+      return;
     }
-    req.user = user;
-    next();
+    authReq.user = user;
+    next();  // tiếp tục qua controller
+    next();  // tiếp tục qua controller
   } catch (err) {
-    return res.status(401).json({ message: "Token không hợp lệ hoặc hết hạn" });
+    res.status(401).json({ message: "Token không hợp lệ hoặc hết hạn" });
+    return;
   }
 };
