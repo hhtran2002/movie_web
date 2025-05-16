@@ -1,79 +1,107 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import "../styles/movieadmin.css";
+// src/pages/MovieAdmin.tsx
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import '../styles/movieAdmin.css';
 
-const MovieAdmin = () => {
-  const [movies, setMovies] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+interface Movie {
+  id: number;
+  name: string;
+  description: string;
+  status: string;
+  release_year: number;
+  total_ep: number;
+  trailer_url: string;
+  thumbnail: string;
+}
 
-  const fetchMovies = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/api/admin/movies");
-      setMovies(res.data as any[]);
-      setError(null);
-    } catch (err: any) {
-      console.error("Lỗi khi tải danh sách phim:", err);
-      setError("Không thể tải danh sách phim. Vui lòng thử lại sau.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleDelete = async (id: number) => {
-    if (!window.confirm("Bạn có chắc muốn xóa phim này?")) return;
-    try {
-      await axios.delete(`http://localhost:5000/api/admin/movies/${id}`);
-      setMovies((prev) => prev.filter((movie) => movie.id !== id));
-      alert("✅ Xóa phim thành công");
-    } catch (err: any) {
-      console.error("Lỗi khi xóa phim:", err.response?.data || err);
-      alert(`❌ Xóa thất bại: ${err.response?.data?.message || "Lỗi server"}`);
-    }
-  };
+const MovieAdmin: React.FC = () => {
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const res = await axios.get<Movie[]>('/api/admin/movies');
+        setMovies(res.data);
+      } catch (err: any) {
+        console.error('Lỗi khi fetch movies:', err.response?.data || err.message);
+        alert('❌ Không lấy được danh sách phim.');
+      }
+    };
     fetchMovies();
   }, []);
 
-  if (loading) return <p>Đang tải danh sách phim...</p>;
-  if (error) return <p>{error}</p>;
+  const handleDelete = async (id: number) => {
+    if (!window.confirm('Bạn có chắc muốn xóa phim này?')) return;
+    try {
+      await axios.delete(`/api/admin/movies/${id}`);
+      setMovies((prev) => prev.filter((m) => m.id !== id));
+    } catch (err: any) {
+      console.error('Lỗi khi xóa phim:', err.response?.data || err.message);
+      alert('❌ Xóa phim thất bại.');
+    }
+  };
 
   return (
-    <div className="movie-list">
+    <div className="movie-admin-container">
+      <div className="movie-admin-header">
+        <h2>📋 Danh sách phim</h2>
+        <button
+          className="add-movie-btn"
+          onClick={() => navigate('/admin/movies/add')}
+        >
+          ➕ Thêm phim
+        </button>
+      </div>
+
       <table className="movie-table">
         <thead>
           <tr>
             <th>ID</th>
             <th>Tên phim</th>
-            <th>Thể loại</th>
-            <th>Số tập</th>
+            <th>Năm</th>
+            <th>Tổng tập</th>
             <th>Hành động</th>
           </tr>
         </thead>
         <tbody>
-          {movies.map((movie) => (
-            <tr key={movie.id}>
-              <td>{movie.id}</td>
-              <td>{movie.name}</td>
-              <td>{movie.genres?.map((g: any) => g.name).join(", ") || "Chưa có"}</td>
-              <td>{movie.total_ep}</td>
+          {movies.map((m) => (
+            <tr key={m.id}>
+              <td>{m.id}</td>
+              <td>{m.name}</td>
+              <td>{m.release_year}</td>
+              <td>{m.total_ep}</td>
               <td>
-                <Link to={`../../episodes/add?movieId=${movie.id}`} className="add-ep-btn">
-                  ➕ Tập phim
-                </Link>
-                <button className="delete-btn" onClick={() => handleDelete(movie.id)}>
-                  🗑️ Xóa
-                </button>
+                <div className="action-buttons">
+                  <button
+                    className="add-episode-btn"
+                    onClick={() =>
+                      navigate(`/admin/episodes/add?movieId=${m.id}`)
+                    }
+                  >
+                    ➕ Tập phim
+                  </button>
+                  <button
+                    className="delete-movie-btn"
+                    onClick={() => handleDelete(m.id)}
+                  >
+                    🗑️ Xóa
+                  </button>
+                </div>
               </td>
             </tr>
           ))}
+
+          {movies.length === 0 && (
+            <tr>
+              <td colSpan={5} style={{ textAlign: 'center', padding: 16 }}>
+                Không có phim nào.
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
-      <div className="add-movie-container">
-        <Link to="../../movies/add" className="add-movie-btn">➕ Thêm phim</Link>
-      </div>
     </div>
   );
 };

@@ -1,19 +1,26 @@
+import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import MovieAdmin from './MovieAdmin';
-import AddEpisode from './AddEpisode';
 import AddMovie from './AddMovie';
+import AddEpisode from './AddEpisode';
 
-const Admin = () => {
+const Admin: React.FC = () => {
   return (
     <div style={{ display: 'flex' }}>
-      <div style={{ flex: 1, padding: '20px' }}>
+
+      <main style={{ flex: 1, padding: 20 }}>
         <Routes>
-          <Route index element={<Navigate to="movies/list" />} />
-          <Route path="movies/list" element={<MovieAdmin />} />
-          <Route path="episodes/add" element={<AddEpisode />} />
-          <Route path="movies/add" element={<AddMovie />} />
+          {/* /admin → /admin/movies/list */}
+          <Route index element={<Navigate to="movies/list" replace />} />
+
+          <Route path="movies/list"   element={<MovieAdmin />} />
+          <Route path="movies/add"    element={<AddMovie />} />
+          <Route path="episodes/add"  element={<AddEpisode />} />
+
+          {/* catch-all */}
+          <Route path="*"            element={<Navigate to="movies/list" replace />} />
         </Routes>
-      </div>
+      </main>
     </div>
   );
 };

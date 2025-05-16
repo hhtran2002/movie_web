@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const AddEpisode = () => {
   const [params] = useSearchParams();
+  const navigate = useNavigate();
   const movieId = params.get("movieId");
 
   const [epNumber, setEpNumber] = useState("");
@@ -16,14 +17,13 @@ const AddEpisode = () => {
       return;
     }
     try {
-      await axios.post("http://localhost:5000/api/admin/episodes", {
+      await axios.post('/api/admin/episodes', {
         movieId: Number(movieId),
         ep_link: epLink,
         ep_number: Number(epNumber),
       });
       alert("✅ Thêm tập phim thành công!");
-      setEpNumber("");
-      setEpLink("");
+      navigate(`/admin/movies/list`);
     } catch (err: any) {
       console.error("Lỗi khi thêm tập phim:", err.response?.data || err.message);
       alert(`❌ Lỗi khi thêm tập phim: ${err.response?.data?.message || err.message}`);

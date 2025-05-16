@@ -1,45 +1,64 @@
+/* MovieAdmin.css */
+
+.movie-admin-container {
+  padding: 20px;
+}
+
+.movie-admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.movie-admin-header h2 {
+  margin: 0;
+}
+
+.add-movie-btn {
+  background: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 .movie-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
 }
 
-.movie-table th, .movie-table td {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
+.movie-table th,
+.movie-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
 }
 
-.add-ep-btn, .delete-btn, .add-movie-btn {
-  margin: 0 5px;
+.movie-table th {
+  background-color: #f8f9fa;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.add-episode-btn {
+  background: #007bff;
+  color: white;
   padding: 6px 12px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  text-decoration: none;
-  font-weight: bold;
 }
 
-.add-ep-btn {
-  background-color: #007bff;
+.delete-movie-btn {
+  background: #dc3545;
   color: white;
-}
-
-.delete-btn {
-  background-color: #dc3545;
-  color: white;
-}
-
-.add-movie-container {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.add-movie-btn {
-  background-color: #28a745;
-  color: white;
-  padding: 10px 20px;
-  text-decoration: none;
-  font-size: 16px;
-  border-radius: 6px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
