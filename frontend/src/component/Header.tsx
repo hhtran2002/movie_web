@@ -1,7 +1,7 @@
 // src/components/Header.tsx
 import React, { useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaHome, FaUser, FaHistory, FaUserShield } from "react-icons/fa";
+import { FaHome, FaUser, FaHistory } from "react-icons/fa";
 import "../styles/header.css";
 
 const Header: React.FC = () => {
@@ -30,9 +30,7 @@ const Header: React.FC = () => {
       <Link to="/history" title="Lịch Sử">
         <FaHistory size={30} className="nav-icon" />
       </Link>
-      <Link to="/admin" title="Admin">
-        <FaUserShield size={30} className="nav-icon" />
-      </Link>
+    
 
 
       {/* Search Form */}

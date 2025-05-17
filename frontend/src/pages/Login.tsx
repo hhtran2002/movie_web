@@ -1,3 +1,4 @@
+// src/pages/Login.tsx
 import React, { useState, FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -6,23 +7,27 @@ import '../styles/login.css';
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const navigate = useNavigate(); // dùng để chuyển hướng sau khi login
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    // 1. Nếu là admin tĩnh thì bỏ qua API, set token và chuyển hướng luôn
+    if (email === 'admin@gmail.com' && password === 'admin') {
+      // bạn có thể set 1 giá trị token bất kỳ hoặc thông tin role
+      localStorage.setItem('token', 'admin-token');
+      alert('Đăng nhập thành công với quyền Admin!');
+      navigate('/admin');
+      return;
+    }
+
+    // 2. Còn lại thì gọi API như bình thường
     try {
-      const response = await axios.post('http://localhost:5000/api/login', {
-        email,
-        password
-      });
-      
+      const response = await axios.post('http://localhost:5000/api/login', { email, password });
       const data = response.data as { token: string };
       localStorage.setItem('token', data.token);
-      
-
       alert('Đăng nhập thành công!');
-      navigate('/account'); // chuyển hướng về trang chủ hoặc dashboard
-
+      navigate('/account');
     } catch (error: any) {
       alert(error.response?.data?.message || 'Đăng nhập thất bại');
     }
@@ -38,7 +43,7 @@ const Login: React.FC = () => {
               type="email"
               placeholder="Email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
               required
             />
           </div>
@@ -47,7 +52,7 @@ const Login: React.FC = () => {
               type="password"
               placeholder="Password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
               required
             />
           </div>
