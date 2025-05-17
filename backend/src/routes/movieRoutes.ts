@@ -11,9 +11,8 @@ import {
   getRatingById,
   watchEpisode,
   getEpisodesByMovie,
-  search,
-
-} from "../controllers/movieController";
+  search
+} from "../controllers/movieController"; 
 
 const router = express.Router();
 
@@ -27,7 +26,6 @@ router.get("/details/:id", getMovieDetails);
 router.get("/phimle", getSingleEpisodeMovies);
 router.get("/phimbo", getSeriesMovies);
 router.get("/danhgia/:id", getRatingById);
-
 
 // --- POST Routes ---
 router.post("/ratings", addRating);

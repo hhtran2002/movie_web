@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Movie Detail Section */
 .movie-detail {
   color: white;
@@ -11,11 +12,42 @@
   background-size: cover;
   background-position: center;
   min-height: 100vh;
+=======
+/* Container chính */
+.movie-detail-container {
+
+  min-height: 100vh;
+  color: white;
+}
+
+/* Banner toàn màn hình */
+.banner {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+}
+
+/* Phần nội dung chính (hai cột) */
+.movie-detail {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+>>>>>>> origin/branchKieu
 }
 
 .top-section {
   display: flex;
   flex-direction: row;
+<<<<<<< HEAD
   gap: 40px; /* tạo khoảng cách giữa poster và info */
   margin-bottom: 40px;
 }
@@ -30,18 +62,35 @@
 
 /* Movie Poster Container */
 .movie-poster {
+=======
+  gap: 40px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* Cột trái: Poster phim */
+.movie-poster {
+  flex: 1;
+>>>>>>> origin/branchKieu
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
+<<<<<<< HEAD
 }
 
 /* Movie Poster Image */
+=======
+  min-width: 300px;
+}
+
+>>>>>>> origin/branchKieu
 .movie-poster img {
   width: 350px;
   height: 450px;
   object-fit: cover;
   border-radius: 10px;
+<<<<<<< HEAD
   margin-right: 50px;
   margin-left: 50px;
 }
@@ -50,6 +99,16 @@
 .movie-info {
   max-width: 600px;
   text-align: left;
+=======
+}
+
+/* Cột phải: Thông tin phim và danh sách tập phim */
+.movie-info {
+  flex: 2;
+  max-width: 600px;
+  text-align: left;
+  min-width: 300px;
+>>>>>>> origin/branchKieu
 }
 
 .movie-info h1 {
@@ -59,6 +118,7 @@
 }
 
 .movie-info p {
+<<<<<<< HEAD
   font-size: 1.2em; /* Tăng kích thước font cho các đoạn mô tả */
   margin: 15px 0;
   line-height: 1.6; /* Tăng khoảng cách dòng để dễ đọc */
@@ -66,11 +126,21 @@
 
 .movie-info p strong {
   color: yellow; /* Làm nổi bật các nhãn (Mô tả, Năm phát hành, v.v.) */
+=======
+  font-size: 1.2em;
+  margin: 15px 0;
+  line-height: 1.6;
+}
+
+.movie-info p strong {
+  color: yellow;
+>>>>>>> origin/branchKieu
 }
 
 .movie-info a {
   color: white;
   text-decoration: none;
+<<<<<<< HEAD
   font-size: 1.2em; /* Tăng kích thước font cho link trailer */
 }
 /* Loading State */
@@ -96,12 +166,16 @@
 .episodes-list li {
   padding: 10px;
   border-bottom: 1px solid #eee;
+=======
+  font-size: 1.2em;
+>>>>>>> origin/branchKieu
 }
 
 .movie-info a:hover {
   text-decoration: underline;
 }
 
+<<<<<<< HEAD
 .loading,
 .error,
 .not-found {
@@ -145,6 +219,10 @@
 }
 
 
+=======
+
+/* Nút xem phim */
+>>>>>>> origin/branchKieu
 .watch-button-container {
   margin-top: 20px;
 }
@@ -164,8 +242,48 @@
   background-color: #d32f2f;
 }
 
+<<<<<<< HEAD
 .movie-trailer iframe {
   border: none;
   outline: none;
 }
 
+=======
+/* Phần trailer riêng */
+.trailer-section {
+  padding: 40px;
+}
+
+.movie-trailer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.movie-trailer iframe {
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+/* Loading, Error, Not Found */
+.loading,
+.error,
+.not-found {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.loading {
+  color: white;
+  text-align: center;
+  padding: 40px;
+}
+
+.error {
+  color: #ff4444;
+}
+>>>>>>> origin/branchKieu

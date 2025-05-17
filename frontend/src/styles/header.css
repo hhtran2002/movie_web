@@ -34,7 +34,10 @@
 
 /* Search bar */
 .search-bar {
+<<<<<<< HEAD
   position: relative;
+=======
+>>>>>>> origin/branchKieu
   display: flex;
   align-items: center;
   background-color: #333;
@@ -87,6 +90,7 @@
 
 .register-btn-header:hover {
   background-color: #eab308;
+<<<<<<< HEAD
 }
 
 
@@ -122,4 +126,6 @@
 
 .suggestions li:hover {
   background-color: #f5f5f5;
+=======
+>>>>>>> origin/branchKieu
 }
