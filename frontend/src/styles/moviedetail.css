@@ -1,0 +1,171 @@
+/* Movie Detail Section */
+.movie-detail {
+  color: white;
+  padding: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  /* flex-direction: row; */
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+}
+
+.top-section {
+  display: flex;
+  flex-direction: row;
+  gap: 40px; /* tạo khoảng cách giữa poster và info */
+  margin-bottom: 40px;
+}
+
+.movie-trailer {
+  width: 100%;
+  padding: 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.05); /* nền nhẹ */
+}
+
+/* Movie Poster Container */
+.movie-poster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* Movie Poster Image */
+.movie-poster img {
+  width: 350px;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-right: 50px;
+  margin-left: 50px;
+}
+
+/* Movie Info */
+.movie-info {
+  max-width: 600px;
+  text-align: left;
+}
+
+.movie-info h1 {
+  font-size: 50px;
+  margin: 0 0 10px;
+  color: white;
+}
+
+.movie-info p {
+  font-size: 1.2em; /* Tăng kích thước font cho các đoạn mô tả */
+  margin: 15px 0;
+  line-height: 1.6; /* Tăng khoảng cách dòng để dễ đọc */
+}
+
+.movie-info p strong {
+  color: yellow; /* Làm nổi bật các nhãn (Mô tả, Năm phát hành, v.v.) */
+}
+
+.movie-info a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2em; /* Tăng kích thước font cho link trailer */
+}
+/* Loading State */
+.loading {
+  color: white;
+  text-align: center;
+  padding: 40px;
+}
+
+.episodes-list {
+  margin-top: 20px;
+}
+
+.episodes-list h2 {
+  font-size: 1.5em;
+  /* color: #333; */
+}
+.episodes-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.episodes-list li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.movie-info a:hover {
+  text-decoration: underline;
+}
+
+.loading,
+.error,
+.not-found {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.error {
+  color: #ff4444;
+}
+
+.episodes-list {
+  margin-top: 20px;
+}
+
+.episodes-list h2 {
+  font-size: 1.5em;
+}
+
+.episodes-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.episodes-list li {
+  padding: 10px;
+  border-bottom: 1px solid #444;
+}
+
+.episodes-list li a {
+  color: #1e90ff;
+  text-decoration: none;
+}
+
+.episodes-list li a:hover {
+  text-decoration: underline;
+}
+
+
+.watch-button-container {
+  margin-top: 20px;
+}
+
+.watch-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f44336;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.watch-button:hover {
+  background-color: #d32f2f;
+}
+
+.movie-trailer iframe {
+  border: none;
+  outline: none;
+}
+
