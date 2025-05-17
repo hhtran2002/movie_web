@@ -1,55 +1,64 @@
-/* Movie Detail Section */
-.movie-detail {
+/* Container chính */
+.movie-detail-container {
+
+  min-height: 100vh;
   color: white;
+}
+
+/* Banner toàn màn hình */
+.banner {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+}
+
+/* Phần nội dung chính (hai cột) */
+.movie-detail {
   padding: 40px;
   display: flex;
-  flex-wrap: wrap;
-  /* flex-direction: row; */
   justify-content: center;
   align-items: flex-start;
-  overflow: hidden;
-  background-size: cover;
-  background-position: center;
-  min-height: 100vh;
+  flex-wrap: wrap;
 }
 
 .top-section {
   display: flex;
   flex-direction: row;
-  gap: 40px; /* tạo khoảng cách giữa poster và info */
-  margin-bottom: 40px;
-}
-
-.movie-trailer {
+  gap: 40px;
+  max-width: 1200px;
   width: 100%;
-  padding: 20px;
-  border: none;
-  border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.05); /* nền nhẹ */
 }
 
-/* Movie Poster Container */
+/* Cột trái: Poster phim */
 .movie-poster {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
+  min-width: 300px;
 }
 
-/* Movie Poster Image */
 .movie-poster img {
   width: 350px;
   height: 450px;
   object-fit: cover;
   border-radius: 10px;
-  margin-right: 50px;
-  margin-left: 50px;
 }
 
-/* Movie Info */
+/* Cột phải: Thông tin phim và danh sách tập phim */
 .movie-info {
+  flex: 2;
   max-width: 600px;
   text-align: left;
+  min-width: 300px;
 }
 
 .movie-info h1 {
@@ -59,92 +68,27 @@
 }
 
 .movie-info p {
-  font-size: 1.2em; /* Tăng kích thước font cho các đoạn mô tả */
+  font-size: 1.2em;
   margin: 15px 0;
-  line-height: 1.6; /* Tăng khoảng cách dòng để dễ đọc */
+  line-height: 1.6;
 }
 
 .movie-info p strong {
-  color: yellow; /* Làm nổi bật các nhãn (Mô tả, Năm phát hành, v.v.) */
+  color: yellow;
 }
 
 .movie-info a {
   color: white;
   text-decoration: none;
-  font-size: 1.2em; /* Tăng kích thước font cho link trailer */
-}
-/* Loading State */
-.loading {
-  color: white;
-  text-align: center;
-  padding: 40px;
-}
-
-.episodes-list {
-  margin-top: 20px;
-}
-
-.episodes-list h2 {
-  font-size: 1.5em;
-  /* color: #333; */
-}
-.episodes-list ul {
-  list-style: none;
-  padding: 0;
-}
-
-.episodes-list li {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+  font-size: 1.2em;
 }
 
 .movie-info a:hover {
   text-decoration: underline;
 }
 
-.loading,
-.error,
-.not-found {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-}
 
-.error {
-  color: #ff4444;
-}
-
-.episodes-list {
-  margin-top: 20px;
-}
-
-.episodes-list h2 {
-  font-size: 1.5em;
-}
-
-.episodes-list ul {
-  list-style: none;
-  padding: 0;
-}
-
-.episodes-list li {
-  padding: 10px;
-  border-bottom: 1px solid #444;
-}
-
-.episodes-list li a {
-  color: #1e90ff;
-  text-decoration: none;
-}
-
-.episodes-list li a:hover {
-  text-decoration: underline;
-}
-
-
+/* Nút xem phim */
 .watch-button-container {
   margin-top: 20px;
 }
@@ -164,8 +108,40 @@
   background-color: #d32f2f;
 }
 
+/* Phần trailer riêng */
+.trailer-section {
+  padding: 40px;
+}
+
+.movie-trailer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .movie-trailer iframe {
   border: none;
   outline: none;
+  width: 100%;
 }
 
+/* Loading, Error, Not Found */
+.loading,
+.error,
+.not-found {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.loading {
+  color: white;
+  text-align: center;
+  padding: 40px;
+}
+
+.error {
+  color: #ff4444;
+}
