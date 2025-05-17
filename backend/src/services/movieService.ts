@@ -46,14 +46,6 @@ export const getMoviesByCategoryService = async (categoryName: string) => {
     .getMany();
 };
 
-export const searchMoviesService = async (keyword: string) => {
-  const movieRepo = AppDataSource.getRepository(Movie);
-  return movieRepo
-    .createQueryBuilder("movie")
-    .where("LOWER(movie.name) LIKE LOWER(:keyword)", { keyword: `%${keyword}%` })
-    .getMany();
-};
-
 export const addRatingService = async (userId: number, movieId: number, rating: number, review?: string) => {
   const ratingRepo = AppDataSource.getRepository(Rating);
 
@@ -89,12 +81,15 @@ export const getEpisodesByMovieService = async (movieId: number) => {
   });
 };
 
-export const searchMovies = async (query: string): Promise<Movie[]> => {
+export const searchMoviesService = async (
+  query: string
+): Promise<Movie[]> => {
   const movieRepo = AppDataSource.getRepository(Movie);
+
   return movieRepo
     .createQueryBuilder("movie")
-    .where("movie.title LIKE :q", { q: `%${query}%` })
-    .orWhere("movie.description LIKE :q", { q: `%${query}%` })
-    .orderBy("movie.title", "ASC")
+    .where("LOWER(movie.name) LIKE LOWER(:q)", { q: `%${query}%` })
+    .orWhere("LOWER(movie.description) LIKE LOWER(:q)", { q: `%${query}%` })
+    .orderBy("movie.name", "ASC")
     .getMany();
 };

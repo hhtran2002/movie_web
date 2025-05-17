@@ -12,8 +12,7 @@ import {
   saveWatchHistoryService,
   getEpisodeByIdService,
   getEpisodesByMovieService,
-  getRatingByMovieIdService,
-  searchMovies
+  getRatingByMovieIdService
 } from "../services/movieService";
 
 // Lấy tất cả phim
@@ -121,7 +120,11 @@ export const getRatingById = async (req: Request, res: Response, next: NextFunct
   }
 };
 
-export const search = async (req: Request, res: Response): Promise<void> => {
+export const search = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   const q = (req.query.query as string || "").trim();
   if (!q) {
     res.status(400).json({ message: "Thiếu tham số query" });
@@ -129,7 +132,7 @@ export const search = async (req: Request, res: Response): Promise<void> => {
   }
 
   try {
-    const movies = await searchMovies(q);
+    const movies = await searchMoviesService(q);
     res.json(movies);
   } catch (err) {
     console.error("Error searching movies:", err);

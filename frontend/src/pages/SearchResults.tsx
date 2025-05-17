@@ -17,12 +17,25 @@ const SearchResults: React.FC = () => {
 
   useEffect(() => {
     const fetchSearchResults = async () => {
+      setLoading(true);
+
       try {
-        const res = await fetch(`http://localhost:5000/api/movies/search/${encodeURIComponent(keyword || '')}`);
-        const data = await res.json();
-        setMovies(data);
-      } catch (error) {
-        console.error('Lỗi khi tìm phim:', error);
+        // Nếu bạn đã config "proxy" trong package.json (CRA/Vite),
+        // chỉ cần fetch đến /api/movies/search...
+        const res = await fetch(
+          `/api/movies/search?query=${encodeURIComponent(keyword || '')}`
+        );
+
+        if (!res.ok) {
+          console.error('Fetch lỗi:', res.status, res.statusText);
+          setMovies([]);
+        } else {
+          const data: Movie[] = await res.json();
+          setMovies(data);
+        }
+      } catch (err) {
+        console.error('Lỗi khi tìm phim:', err);
+        setMovies([]);
       } finally {
         setLoading(false);
       }
