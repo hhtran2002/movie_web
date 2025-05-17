@@ -16,7 +16,7 @@ import SearchResults from './pages/SearchResults';
 
 import Account     from './pages/Account';
 import History     from './pages/History';
-import SearchResults from './pages/SearchResults';
+
 const App: React.FC = () => {
   return (
     <div className="App">
