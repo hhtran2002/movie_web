@@ -50,7 +50,7 @@ export const searchMoviesService = async (keyword: string) => {
   const movieRepo = AppDataSource.getRepository(Movie);
   return movieRepo
     .createQueryBuilder("movie")
-    .where("movie.name LIKE :keyword", { keyword: `%${keyword}%` })
+    .where("LOWER(movie.name) LIKE LOWER(:keyword)", { keyword: `%${keyword}%` })
     .getMany();
 };
 
