@@ -12,18 +12,10 @@ import Home from './pages/Home';
 import MovieDetail from './pages/MovieDetail';
 import Videoplayer from './pages/Video-player';
 import Admin from './pages/Admin';
-<<<<<<< HEAD
-import SearchResults from './pages/SearchResults';
-
-import Account     from './pages/Account';
-import History     from './pages/History';
-
-=======
 
 import Account     from './pages/Account';
 import History     from './pages/History';
 import SearchResults from './pages/SearchResults';
->>>>>>> origin/branchKieu
 const App: React.FC = () => {
   return (
     <div className="App">
@@ -36,10 +28,6 @@ const App: React.FC = () => {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/movies/:id" element={<MovieDetail />} />
         <Route path="/watch/:id" element={<Videoplayer />} />
-<<<<<<< HEAD
-        <Route path="/search/:keyword" element={<SearchResults />} />
-=======
->>>>>>> origin/branchKieu
 
         {/* Account & History */}
         <Route path="/account"         element={<Account />} />

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import "../styles/AddEpisode.css"; // Thêm import CSS
 
 const AddEpisode = () => {
   const [params] = useSearchParams();
@@ -17,7 +18,7 @@ const AddEpisode = () => {
       return;
     }
     try {
-      await axios.post('/api/admin/episodes', {
+      await axios.post("/api/admin/episodes", {
         movieId: Number(movieId),
         ep_link: epLink,
         ep_number: Number(epNumber),
@@ -31,8 +32,8 @@ const AddEpisode = () => {
   };
 
   return (
-    <div>
-      <h2>➕ Thêm tập phim</h2>
+    <div className="add-episode-container">
+      <h2>THÊM TẬP PHIM</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="number"

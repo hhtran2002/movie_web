@@ -1,9 +1,11 @@
-/* MovieAdmin.css */
-
 .movie-admin-container {
   padding: 20px;
+  color: white; /* toàn bộ chữ trắng */
+  font-weight: bold;
+
 }
 
+/* HEADER */
 .movie-admin-header {
   display: flex;
   justify-content: space-between;
@@ -13,10 +15,12 @@
 
 .movie-admin-header h2 {
   margin: 0;
+  color: white;
 }
 
+/* BUTTON: Thêm phim */
 .add-movie-btn {
-  background: #28a745;
+  background: #007bff;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -24,9 +28,11 @@
   cursor: pointer;
 }
 
+/* TABLE */
 .movie-table {
   width: 100%;
   border-collapse: collapse;
+  color: white; /* nội dung bảng chữ trắng */
 }
 
 .movie-table th,
@@ -37,9 +43,11 @@
 }
 
 .movie-table th {
-  background-color: #f8f9fa;
+  background-color: #333; /* đổi từ xám nhạt → xám đậm hơn cho nền tối */
+  color: white;
 }
 
+/* CÁC BUTTON TRONG ACTIONS */
 .action-buttons {
   display: flex;
   gap: 8px;

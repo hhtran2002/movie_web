@@ -23,14 +23,6 @@ axios.get<{ user: UserInfo }>("http://localhost:5000/api/user/account", {
     console.error(err);
     alert('❌ Không tải được thông tin tài khoản.');
   });
-
-    // axios
-    //   .get<{ user: UserInfo }>('/account')
-    //   .then(res => setUser(res.data.user))
-    //   .catch(err => {
-    //     console.error(err);
-    //     alert('❌ Không tải được thông tin tài khoản.');
-    //   });
   }, []);
 
   if (!user) return <div className="account-container">Đang tải...</div>;

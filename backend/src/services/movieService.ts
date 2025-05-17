@@ -46,8 +46,6 @@ export const getMoviesByCategoryService = async (categoryName: string) => {
     .getMany();
 };
 
-<<<<<<< HEAD
-=======
 export const searchMoviesService = async (keyword: string) => {
   const movieRepo = AppDataSource.getRepository(Movie);
   return movieRepo
@@ -56,7 +54,6 @@ export const searchMoviesService = async (keyword: string) => {
     .getMany();
 };
 
->>>>>>> origin/branchKieu
 export const addRatingService = async (userId: number, movieId: number, rating: number, review?: string) => {
   const ratingRepo = AppDataSource.getRepository(Rating);
 
@@ -70,11 +67,23 @@ export const addRatingService = async (userId: number, movieId: number, rating: 
   return ratingRepo.save(newRating);
 };
 
-export const saveWatchHistoryService = async (userId: number, movieId: number, epNumber: number, watchTime: string) => {
+export const saveWatchHistoryService = async (
+  userId: number,
+  movieId: number,
+  epNumber: number,
+  watchTime: string
+) => {
   const historyRepo = AppDataSource.getRepository(WatchHistory);
-  const history = historyRepo.create({ user: { id: userId }, movie: { id: movieId }, ep_number: epNumber, watch_time: watchTime });
+  const history = historyRepo.create({
+    user: { id: userId },
+    movie: { id: movieId },
+    ep_number: epNumber,
+    watch_time: watchTime,
+  });
+
   return historyRepo.save(history);
 };
+
 
 export const getEpisodeByIdService = async (episodeId: number) => {
   const episodeRepo = AppDataSource.getRepository(Episode);
@@ -92,25 +101,12 @@ export const getEpisodesByMovieService = async (movieId: number) => {
   });
 };
 
-<<<<<<< HEAD
-export const searchMoviesService = async (
-  query: string
-): Promise<Movie[]> => {
-  const movieRepo = AppDataSource.getRepository(Movie);
-
-  return movieRepo
-    .createQueryBuilder("movie")
-    .where("LOWER(movie.name) LIKE LOWER(:q)", { q: `%${query}%` })
-    .orWhere("LOWER(movie.description) LIKE LOWER(:q)", { q: `%${query}%` })
-    .orderBy("movie.name", "ASC")
-=======
 export const searchMovies = async (query: string): Promise<Movie[]> => {
   const movieRepo = AppDataSource.getRepository(Movie);
   return movieRepo
     .createQueryBuilder("movie")
-    .where("movie.title LIKE :q", { q: `%${query}%` })
+    .where("movie.name LIKE :q", { q: `%${query}%` })
     .orWhere("movie.description LIKE :q", { q: `%${query}%` })
     .orderBy("movie.title", "ASC")
->>>>>>> origin/branchKieu
     .getMany();
 };

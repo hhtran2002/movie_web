@@ -14,7 +14,13 @@ const History: React.FC = () => {
   const [list, setList] = useState<HistoryItem[]>([]);
 
   useEffect(() => {
-    axios.get<HistoryItem[]>('/api/history')
+    const token = localStorage.getItem("token");
+
+    axios.get<HistoryItem[]>('/api/history', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then(res => setList(res.data))
       .catch(err => {
         console.error(err);
@@ -22,9 +28,10 @@ const History: React.FC = () => {
       });
   }, []);
 
+
   return (
     <div className="history-container">
-      <h2>🕒 Lịch sử xem phim</h2>
+      <h2>LỊCH SỬ XEM PHIM</h2>
       {list.length === 0 ? (
         <p>Bạn chưa xem phim nào.</p>
       ) : (

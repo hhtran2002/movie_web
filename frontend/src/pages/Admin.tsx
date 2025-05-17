@@ -1,8 +1,8 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import MovieAdmin from './MovieAdmin';
-import AddMovie from './AddMovie';
-import AddEpisode from './AddEpisode';
+import AddMovie from '../component/AddMovie';
+import AddEpisode from '../component/AddEpisode';
 
 const Admin: React.FC = () => {
   return (

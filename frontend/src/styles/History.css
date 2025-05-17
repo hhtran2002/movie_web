@@ -2,12 +2,16 @@
   max-width: 800px;
   margin: 40px auto;
   padding: 20px;
+  color: white; /* chữ trắng cho toàn bộ container */
 }
 
+/* Tiêu đề */
 .history-container h2 {
   margin-bottom: 16px;
+  color: white; /* đảm bảo tiêu đề cũng trắng */
 }
 
+/* Danh sách */
 .history-list {
   list-style: none;
   padding: 0;
@@ -18,25 +22,29 @@
   justify-content: space-between;
   align-items: center;
   padding: 12px 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #444; /* viền dưới nhẹ hơn nhưng vẫn nhìn thấy trên nền tối */
 }
 
+/* Xóa viền dưới dòng cuối */
 .history-item:last-child {
   border-bottom: none;
 }
 
+/* Link phim */
 .history-link {
-  color: #007bff;
+  color: white; /* chữ trắng */
   text-decoration: none;
   font-weight: 500;
 }
 
 .history-link:hover {
+  color: #facc15; /* vàng khi hover */
   text-decoration: underline;
 }
 
+/* Ngày giờ xem */
 .history-date {
-  color: #666;
+  color: #ccc; /* nhạt hơn một chút cho phân biệt */
   font-size: 0.875rem;
   margin-left: 12px;
   white-space: nowrap;

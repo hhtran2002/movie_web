@@ -1,0 +1,54 @@
+.add-episode-container {
+  max-width: 500px;
+  margin: 40px auto;
+
+  padding: 30px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  color: white;
+  font-weight: bold;
+}
+
+.add-episode-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: white;
+}
+
+.add-episode-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.add-episode-container input {
+  padding: 10px 14px;
+  border: 1px solid #888;
+  border-radius: 4px;
+
+  color: white;
+  font-size: 16px;
+}
+
+.add-episode-container input:focus {
+  outline: none;
+  border-color: #facc15;
+  box-shadow: 0 0 5px #facc15;
+}
+
+.add-episode-container button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.add-episode-container button:hover {
+  background-color: #2795d8;
+}

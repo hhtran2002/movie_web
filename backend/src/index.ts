@@ -8,6 +8,7 @@ import adminRouter from "./routes/adminRoutes";
 import userRoutes from "./routes/userRoutes";       
 import historyRoutes from "./routes/historyRoutes"; 
 import ratingRouter from "./routes/ratingRoutes";
+import searchRoutes from "./routes/movieRoutes";
 const app = express();
 
 // ✅ Thêm cấu hình CORS
@@ -33,6 +34,9 @@ app.use("/api", historyRoutes);
 app.use("/api/movies", movieRoutes);
 app.use("/api/admin", adminRouter);
 app.use("/api/ratings", ratingRouter);
+app.use("/api", searchRoutes);
+
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`🚀 Server đang chạy tại http://localhost:${PORT}`);

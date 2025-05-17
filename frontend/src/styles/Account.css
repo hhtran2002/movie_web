@@ -1,21 +1,24 @@
-/* Account.css */
-
 .account-container {
   max-width: 600px;
   margin: 40px auto;
   padding: 20px;
-  background: #fafafa;
+  background: transparent;              /* nền trong suốt */
+  border: 5px solid #fff;              /* viền đen */
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  color: white;                         /* chữ trắng */
 }
 
+/* Tiêu đề */
 .account-container h2 {
   margin-bottom: 16px;
+  color: white;                         /* chữ trắng cho tiêu đề */
 }
 
+/* Thông tin tài khoản */
 .account-info p {
   margin: 8px 0;
   font-size: 1rem;
+  color: white;                         /* chữ trắng */
 }
 
 /* SECTION: actions */
@@ -24,6 +27,7 @@
   text-align: center;
 }
 
+/* Nút xem lịch sử */
 .history-button {
   display: inline-block;
   padding: 10px 20px;

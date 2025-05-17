@@ -1,49 +1,3 @@
-<<<<<<< HEAD
-// src/pages/MovieAdmin.tsx
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import '../styles/movieAdmin.css';
-
-interface Movie {
-  id: number;
-  name: string;
-  description: string;
-  status: string;
-  release_year: number;
-  total_ep: number;
-  trailer_url: string;
-  thumbnail: string;
-}
-
-const MovieAdmin: React.FC = () => {
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const res = await axios.get<Movie[]>('/api/admin/movies');
-        setMovies(res.data);
-      } catch (err: any) {
-        console.error('Lỗi khi fetch movies:', err.response?.data || err.message);
-        alert('❌ Không lấy được danh sách phim.');
-      }
-    };
-    fetchMovies();
-  }, []);
-
-  const handleDelete = async (id: number) => {
-    if (!window.confirm('Bạn có chắc muốn xóa phim này?')) return;
-    try {
-      await axios.delete(`/api/admin/movies/${id}`);
-      setMovies((prev) => prev.filter((m) => m.id !== id));
-    } catch (err: any) {
-      console.error('Lỗi khi xóa phim:', err.response?.data || err.message);
-      alert('❌ Xóa phim thất bại.');
-    }
-  };
-=======
 "use client"
 
 import React, { useEffect, useState, useCallback } from "react"
@@ -179,21 +133,13 @@ const MovieAdmin: React.FC = () => {
       alert("❌ Xóa tập phim thất bại.")
     }
   }
->>>>>>> origin/branchKieu
 
   return (
     <div className="movie-admin-container">
       <div className="movie-admin-header">
-        <h2>📋 Danh sách phim</h2>
-<<<<<<< HEAD
-        <button
-          className="add-movie-btn"
-          onClick={() => navigate('/admin/movies/add')}
-        >
-=======
+        <h2>DANH SÁCH PHIM</h2>
         <button className="add-movie-btn" onClick={() => navigate("/admin/movies/add")}>
->>>>>>> origin/branchKieu
-          ➕ Thêm phim
+          Thêm Phim
         </button>
       </div>
 
@@ -209,15 +155,6 @@ const MovieAdmin: React.FC = () => {
         </thead>
         <tbody>
           {movies.map((m) => (
-<<<<<<< HEAD
-            <tr key={m.id}>
-              <td>{m.id}</td>
-              <td>{m.name}</td>
-              <td>{m.release_year}</td>
-              <td>{m.total_ep}</td>
-              <td>
-                <div className="action-buttons">
-=======
             <React.Fragment key={m.id}>
               <tr>
                 <td>{m.id}</td>
@@ -226,31 +163,19 @@ const MovieAdmin: React.FC = () => {
                 <td>{m.total_ep}</td>
                 <td>
                   <div className="action-buttons">
->>>>>>> origin/branchKieu
                   <button
                     className="add-episode-btn"
                     onClick={() =>
                       navigate(`/admin/episodes/add?movieId=${m.id}`)
                     }
                   >
-                    ➕ Tập phim
+                    Thêm
                   </button>
-<<<<<<< HEAD
-                  <button
-                    className="delete-movie-btn"
-                    onClick={() => handleDelete(m.id)}
-                  >
-                    🗑️ Xóa
-                  </button>
-                </div>
-              </td>
-            </tr>
-=======
                     <button className="view-episodes-btn" onClick={() => handleViewEpisodes(m.id)}>
-                      📺 {selectedMovieId === m.id ? "Ẩn tập phim" : "Xem tập phim"}
+                      {selectedMovieId === m.id ? "Ẩn tập phim" : "Xem"}
                     </button>
                     <button className="delete-movie-btn" onClick={() => handleDelete(m.id)}>
-                      🗑️ Xóa
+                      Xóa
                     </button>
                   </div>
                 </td>
@@ -272,7 +197,7 @@ const MovieAdmin: React.FC = () => {
                             <li key={ep.id} className="episode-item">
                               Tập {ep.ep_number} {ep.title ? `- ${ep.title}` : ""}
                               <button className="delete-episode-btn" onClick={() => handleDeleteEpisode(ep.id)}>
-                                🗑️ Xóa
+                                Xóa
                               </button>
                             </li>
                           ))}
@@ -283,16 +208,11 @@ const MovieAdmin: React.FC = () => {
                 </tr>
               )}
             </React.Fragment>
->>>>>>> origin/branchKieu
           ))}
 
           {movies.length === 0 && (
             <tr>
-<<<<<<< HEAD
-              <td colSpan={5} style={{ textAlign: 'center', padding: 16 }}>
-=======
               <td colSpan={5} style={{ textAlign: "center", padding: "16px" }}>
->>>>>>> origin/branchKieu
                 Không có phim nào.
               </td>
             </tr>
@@ -300,14 +220,7 @@ const MovieAdmin: React.FC = () => {
         </tbody>
       </table>
     </div>
-<<<<<<< HEAD
-  );
-};
-
-export default MovieAdmin;
-=======
   )
 }
 
 export default MovieAdmin
->>>>>>> origin/branchKieu

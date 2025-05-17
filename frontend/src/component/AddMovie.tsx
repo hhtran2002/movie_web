@@ -39,7 +39,7 @@ const AddMovie = () => {
 
   return (
     <div className="add-movie-container">
-      <h2>➕ Thêm Phim Mới</h2>
+      <h2>THÊM PHIM MỚI</h2>
       <form onSubmit={handleSubmit} className="add-movie-form">
         <input
           name="name"
