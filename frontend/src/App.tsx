@@ -57,6 +57,7 @@ import Home from './pages/Home';
 import MovieDetail from './pages/MovieDetail';
 import Videoplayer from './pages/Video-player';
 import Admin from './pages/Admin';
+import SearchResults from './pages/SearchResults';
 
 const App: React.FC = () => {
   return (
@@ -70,6 +71,7 @@ const App: React.FC = () => {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/movies/:id" element={<MovieDetail />} />
         <Route path="/watch/:id" element={<Videoplayer />} />
+        <Route path="/search/:keyword" element={<SearchResults />} />
 
         {/* ADMIN phải có dấu * để cho phép nested route */}
         <Route path="/admin/*" element={<Admin />} />

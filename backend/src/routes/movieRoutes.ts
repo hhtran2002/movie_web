@@ -26,6 +26,7 @@ router.get("/details/:id", getMovieDetails);
 router.get("/phimle", getSingleEpisodeMovies);
 router.get("/phimbo", getSeriesMovies);
 router.get("/danhgia/:id", getRatingById);
+router.get("/search/:keyword", searchMovies);
 
 // --- POST Routes ---
 router.post("/ratings", addRating);
