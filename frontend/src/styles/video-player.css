@@ -1,0 +1,270 @@
+/* video-player.css */
+
+/* Container chính: bỏ width cố định, cho phép 100% chiều ngang và giới hạn max-width */
+.video-container {
+  margin-top: 100px;
+  width: 100%;
+  max-width: 1280px; /* hoặc 1200px nếu bạn muốn giới hạn như trước */
+  margin: 0 auto;
+  background-color: #121212;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+    "Helvetica Neue", sans-serif;
+}
+
+/* Wrapper cho iframe video, giữ tỉ lệ 16:9 và chiếm trọn chiều ngang của .video-container */
+.video-wrapper,
+.video-placeholder {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 9/16 = 0.5625 */
+  background-color: #000;
+  overflow: hidden;
+}
+
+/* Khi là .video-placeholder (không có iframe) thì căn giữa text */
+.video-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 18px;
+}
+
+/* iframe nằm tuyệt đối để cover toàn bộ wrapper */
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Video Info and Rating */
+.video-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid #333;
+}
+
+.video-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.video-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Star Rating */
+.star-rating {
+  display: flex;
+  gap: 5px;
+}
+
+.star {
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.star.empty {
+  color: #555;
+}
+
+.star.filled {
+  color: #ffb400;
+}
+
+.rating-text {
+  font-size: 16px;
+  color: #aaa;
+  margin-left: 5px;
+}
+
+/* Tabs */
+.tab-navigation {
+  display: flex;
+  border-bottom: 1px solid #333;
+  padding: 0 20px;
+}
+
+.tab-button {
+  padding: 16px 24px;
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+  font-weight: 500;
+}
+
+.tab-button.active {
+  color: white;
+}
+
+.tab-button.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #e53e3e;
+}
+
+.tab-content {
+  padding: 24px 32px;
+}
+
+/* Comments */
+
+.comment-input-container {
+  display: flex;
+  margin-bottom: 30px;
+  align-items: center;
+}
+
+.comment-input-wrapper {
+  position: relative;
+  flex-grow: 1;
+}
+
+.comment-input {
+  width: 800px;
+  padding: 12px 100px 12px 16px;
+  background-color: #222;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+}
+
+.comment-input::placeholder {
+  color: #777;
+}
+
+.comment-button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #e53e3e;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.comment-item {
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-author {
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.comment-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.comment-rating {
+  display: flex;
+  gap: 2px;
+}
+
+.comment-rating .star {
+  font-size: 18px;
+  cursor: default;
+}
+
+.comment-text {
+  color: #ddd;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Episodes section */
+.episodes {
+  padding: 0;
+}
+
+.episodes h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.episode-item {
+  padding: 16px;
+  border: 1px solid #333;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.episode-item:hover {
+  background-color: #222;
+}
+
+.episode-item.selected {
+  border-color: #e53e3e;
+  background-color: rgba(229, 62, 62, 0.1);
+}
+
+.episode-thumbnail {
+  width: 120px;
+  height: 68px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .video-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .comment-input {
+    width: 100%;
+  }
+
+  .episode-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .episode-thumbnail {
+    width: 100%;
+    height: auto;
+  }
+}

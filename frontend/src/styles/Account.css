@@ -1,0 +1,44 @@
+.account-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background: transparent;              /* nền trong suốt */
+  border: 5px solid #fff;              /* viền đen */
+  border-radius: 8px;
+  color: white;                         /* chữ trắng */
+}
+
+/* Tiêu đề */
+.account-container h2 {
+  margin-bottom: 16px;
+  color: white;                         /* chữ trắng cho tiêu đề */
+}
+
+/* Thông tin tài khoản */
+.account-info p {
+  margin: 8px 0;
+  font-size: 1rem;
+  color: white;                         /* chữ trắng */
+}
+
+/* SECTION: actions */
+.account-actions {
+  margin-top: 24px;
+  text-align: center;
+}
+
+/* Nút xem lịch sử */
+.history-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;    /* xanh dương */
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.history-button:hover {
+  background-color: #0056b3;    /* khi hover đậm hơn */
+}

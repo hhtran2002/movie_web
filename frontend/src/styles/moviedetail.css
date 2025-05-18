@@ -1,0 +1,147 @@
+/* Container chính */
+.movie-detail-container {
+
+  min-height: 100vh;
+  color: white;
+}
+
+/* Banner toàn màn hình */
+.banner {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+}
+
+/* Phần nội dung chính (hai cột) */
+.movie-detail {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.top-section {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* Cột trái: Poster phim */
+.movie-poster {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  min-width: 300px;
+}
+
+.movie-poster img {
+  width: 350px;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Cột phải: Thông tin phim và danh sách tập phim */
+.movie-info {
+  flex: 2;
+  max-width: 600px;
+  text-align: left;
+  min-width: 300px;
+}
+
+.movie-info h1 {
+  font-size: 50px;
+  margin: 0 0 10px;
+  color: white;
+}
+
+.movie-info p {
+  font-size: 1.2em;
+  margin: 15px 0;
+  line-height: 1.6;
+}
+
+.movie-info p strong {
+  color: yellow;
+}
+
+.movie-info a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2em;
+}
+
+.movie-info a:hover {
+  text-decoration: underline;
+}
+
+
+/* Nút xem phim */
+.watch-button-container {
+  margin-top: 20px;
+}
+
+.watch-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f44336;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.watch-button:hover {
+  background-color: #d32f2f;
+}
+
+/* Phần trailer riêng */
+.trailer-section {
+  padding: 40px;
+}
+
+.movie-trailer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.movie-trailer iframe {
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+/* Loading, Error, Not Found */
+.loading,
+.error,
+.not-found {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.loading {
+  color: white;
+  text-align: center;
+  padding: 40px;
+}
+
+.error {
+  color: #ff4444;
+}
