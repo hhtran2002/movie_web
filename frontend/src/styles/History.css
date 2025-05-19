@@ -1,14 +1,17 @@
 .history-container {
-  max-width: 800px;
+  min-width: 800px;
   margin: 40px auto;
   padding: 20px;
   color: white; /* chữ trắng cho toàn bộ container */
+  background-color: #2e2e48;
+  border-radius: 12px;
 }
 
 /* Tiêu đề */
 .history-container h2 {
-  margin-bottom: 16px;
+  text-align: center;
   color: white; /* đảm bảo tiêu đề cũng trắng */
+  
 }
 
 /* Danh sách */

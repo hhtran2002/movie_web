@@ -1,15 +1,17 @@
 .account-container {
-  max-width: 600px;
-  margin: 40px auto;
+  min-width: 600px;
+  min-height: 300px;
+  margin: 40px 40px;
   padding: 20px;
-  background: transparent;              /* nền trong suốt */
-  border: 5px solid #fff;              /* viền đen */
+  background: #2e2e48;              /* nền trong suốt */
+
   border-radius: 8px;
   color: white;                         /* chữ trắng */
 }
 
 /* Tiêu đề */
 .account-container h2 {
+  text-align: center;
   margin-bottom: 16px;
   color: white;                         /* chữ trắng cho tiêu đề */
 }

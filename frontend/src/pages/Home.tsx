@@ -1,217 +1,209 @@
-import React, { useState, useEffect } from "react";
-import "../styles/home.css";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  Dispatch,
+  ReactElement
+} from "react";
 import { useNavigate } from "react-router-dom";
-
+import "../styles/home.css";
 
 interface Movie {
   id: number;
   name: string;
   thumbnail: string;
-  total_ep: number
-
+  total_ep?: number;
 }
-const Home: React.FC = () => {
- 
+
+// Hàm shuffle Fisher–Yates
+function shuffleArray<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const Home: React.FC = (): ReactElement => {
   const navigate = useNavigate();
 
+  // Dữ liệu
   const [movies, setMovies] = useState<Movie[]>([]);
   const [phimBo, setPhimBo] = useState<Movie[]>([]);
   const [phimLe, setPhimLe] = useState<Movie[]>([]);
+
+  // Slider
   const [sliderIndex, setSliderIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  // Loading state
   const [isLoading, setIsLoading] = useState(true);
-  const [visibleTrending, setVisibleTrending] = useState(5);
-  const [visiblePhimBo, setVisiblePhimBo] = useState(5);
-  const [visiblePhimLe, setVisiblePhimLe] = useState(5);
 
+  // Số item hiển thị tạm trên Home
+  const VISIBLE_COUNT = 5;
 
+  // Fetch toàn bộ để làm slider
+  const fetchSlider = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/movies");
+      if (!res.ok) throw new Error("Lỗi khi lấy dữ liệu slider");
+      const data = await res.json();
+      setMovies(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.error(err);
+      setMovies([]);
+    }
+  };
 
+  // Fetch theo slug category
+  const fetchCategory = async (
+    slug: string,
+    setter: Dispatch<React.SetStateAction<Movie[]>>
+  ) => {
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/movies/category/${encodeURIComponent(
+          slug
+        )}`
+      );
+      if (!res.ok) throw new Error(`Lỗi khi lấy danh mục ${slug}`);
+      const data = await res.json();
+      setter(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.error(err);
+      setter([]);
+    }
+  };
+
+  // Load slider + 2 category
   useEffect(() => {
-    const fetchSlider = async () => {
-      try {
-        const res = await fetch("http://localhost:5000/api/movies");
-        if (!res.ok) throw new Error("Lỗi khi lấy phim slider");
-        const data = await res.json();
-        setMovies(Array.isArray(data) ? data : []);
-      } catch (error) {
-        console.error("Lỗi khi lấy phim slider:", error);
-        setMovies([]);
-      }
-    };
-
-    const fetchCategory = async (category: string, setter: React.Dispatch<React.SetStateAction<Movie[]>>) => {
-      try {
-        const res = await fetch(`http://localhost:5000/api/movies/category/${encodeURIComponent(category)}`);
-        if (!res.ok) throw new Error(`Lỗi khi lấy phim ${category}`);
-        const data = await res.json();
-        setter(Array.isArray(data) ? data : []);
-      } catch (error) {
-        console.error(`Lỗi khi lấy phim ${category}:`, error);
-        setter([]);
-      }
-    };
-
-    const fetchPhimLe = async () => {
-      try {
-        const res = await fetch("http://localhost:5000/api/movies/phimle");
-        if (!res.ok) throw new Error("Lỗi khi lấy phim lẻ");
-        const data = await res.json();
-        setPhimLe(Array.isArray(data) ? data : []);
-      } catch (error) {
-        console.error("Lỗi khi lấy phim lẻ:", error);
-        setPhimLe([]);
-      }
-    };
-
-    const fetchPhimBo = async () => {
-      try {
-        const res = await fetch("http://localhost:5000/api/movies/phimbo");
-        if (!res.ok) throw new Error("Lỗi khi lấy phim bộ");
-        const data = await res.json();
-        setPhimBo(Array.isArray(data) ? data : []);
-      } catch (error) {
-        console.error("Lỗi khi lấy phim bộ:", error);
-        setPhimBo([]);
-      }
-    };
-
     const fetchData = async () => {
       setIsLoading(true);
       await Promise.all([
         fetchSlider(),
-        fetchPhimLe(),
-        fetchPhimBo(),
-        fetchCategory("Phim bộ", setPhimBo),
-        fetchCategory("Phim lẻ", setPhimLe),
+        fetchCategory("Phim Bộ", setPhimBo),
+        fetchCategory("Phim Lẻ", setPhimLe),
       ]);
       setIsLoading(false);
     };
-
     fetchData();
   }, []);
 
-  // Function to go to the next slide
-  const nextSlide = () => {
-    setSliderIndex((prev) => (prev + 1) % movies.length);
-  };
+  // Tạo mảng trending random mỗi khi `movies` thay đổi
+  const trendingMovies = useMemo(() => {
+    return shuffleArray(movies);
+  }, [movies]);
 
-  // Function to go to the previous slide
-  const prevSlide = () => {
-    setSliderIndex((prev) => (prev - 1 + movies.length) % movies.length);
-  };
-
-  // Function to go to a specific slide (for dots)
-  const goToSlide = (index: number) => {
-    setSliderIndex(index);
-    handleUserInteraction();
-  };
-
-  // Pause auto-scroll on user interaction
+  // Slider controls
+  const nextSlide = () =>
+    setSliderIndex((i) => (movies.length ? (i + 1) % movies.length : 0));
+  const prevSlide = () =>
+    setSliderIndex((i) =>
+      movies.length ? (i - 1 + movies.length) % movies.length : 0
+    );
   const handleUserInteraction = () => {
     setIsAutoPlaying(false);
     setTimeout(() => setIsAutoPlaying(true), 5000);
-    
+  };
+  const goToSlide = (idx: number) => {
+    setSliderIndex(idx);
+    handleUserInteraction();
   };
 
   useEffect(() => {
     if (!isAutoPlaying || movies.length === 0) return;
-    const interval = setInterval(nextSlide, 3000);
-    return () => clearInterval(interval);
+    const iv = setInterval(nextSlide, 3000);
+    return () => clearInterval(iv);
   }, [isAutoPlaying, movies.length]);
 
-  // Sử dụng isLoading để hiển thị trạng thái loading
   if (isLoading) {
     return <div>Đang tải dữ liệu...</div>;
   }
 
+  // Cấu hình cho 3 section, lấy trendingMovies cho mục THỊNH HÀNH
+  const sections = [
+    { title: "THỊNH HÀNH", slug: "thinh-hanh", data: trendingMovies },
+    { title: "PHIM BỘ", slug: "Phim Bộ", data: phimBo },
+    { title: "PHIM LẺ", slug: "Phim Lẻ", data: phimLe },
+  ];
+
   return (
     <div className="home-container">
+      {/* Slider */}
       <div className="slider">
-        <button className="prev-btn" onClick={() => { prevSlide(); handleUserInteraction(); }}>
+        <button
+          className="prev-btn"
+          onClick={() => {
+            prevSlide();
+            handleUserInteraction();
+          }}
+        >
           {"<"}
         </button>
         <div
           className="slider-container"
-          style={{ "--slider-offset": `${-sliderIndex * 100}%` } as React.CSSProperties}
+          style={
+            { "--slider-offset": `${-sliderIndex * 100}%` } as React.CSSProperties
+          }
         >
-          {movies.length > 0 ? (
-            movies.map((movie) => (
-              <img
-                key={movie.id}
-                src={movie.thumbnail}
-                alt={`Slide ${movie.id}`}
-                className="slider-image"
-              />
-            ))
-          ) : (
-            <div>Không có phim để hiển thị</div>
-          )}
+          {movies.map((m) => (
+            <img
+              key={m.id}
+              src={m.thumbnail}
+              alt={m.name}
+              className="slider-image"
+            />
+          ))}
         </div>
-        <button className="next-btn" onClick={() => { nextSlide(); handleUserInteraction(); }}>
+        <button
+          className="next-btn"
+          onClick={() => {
+            nextSlide();
+            handleUserInteraction();
+          }}
+        >
           {">"}
         </button>
         <div className="slider-dots">
-          {movies.length > 0 &&
-            movies.map((_, index) => (
-              <span
-                key={index}
-                className={`dot ${sliderIndex === index ? "active" : ""}`}
-                onClick={() => goToSlide(index)}
-              />
-            ))}
+          {movies.map((_, idx) => (
+            <span
+              key={idx}
+              className={`dot ${sliderIndex === idx ? "active" : ""}`}
+              onClick={() => goToSlide(idx)}
+            />
+          ))}
         </div>
       </div>
 
-      <div className="movie-section">
-  <h2>THỊNH HÀNH</h2>
-  <div className="movie-list">
-    {movies.slice(0, visibleTrending).map((movie) => (
-      <div key={movie.id} className="movie-item" onClick={() => navigate(`/movies/${movie.id}`)} style={{ cursor: "pointer" }}>
-        <img src={movie.thumbnail} alt="Phim" className="movie-thumbnail" />
-      </div>
-    ))}
-  </div>
-  {visibleTrending < movies.length && (
-    <button onClick={() => setVisibleTrending((prev) => prev + 6)} className="load-more-btn">
-      Xem thêm
-    </button>
-  )}
-</div>
-
-
-
-      <div className="movie-section">
-  <h2>PHIM BỘ</h2>
-  <div className="movie-list">
-    {phimBo.slice(0, visiblePhimBo).map((movie) => (
-      <div key={movie.id} className="movie-item" onClick={() => navigate(`/movies/${movie.id}`)} style={{ cursor: "pointer" }}>
-        <img src={movie.thumbnail} alt="Phim" className="movie-thumbnail" />
-      </div>
-    ))}
-  </div>
-  {visiblePhimBo < phimBo.length && (
-    <button onClick={() => setVisiblePhimBo((prev) => prev + 6)} className="load-more-btn">
-      Xem thêm
-    </button>
-  )}
-</div>
-
-
-      <div className="movie-section">
-  <h2>PHIM LẺ</h2>
-  <div className="movie-list">
-    {phimLe.slice(0, visiblePhimLe).map((movie) => (
-      <div key={movie.id} className="movie-item" onClick={() => navigate(`/movies/${movie.id}`)} style={{ cursor: "pointer" }}>
-        <img src={movie.thumbnail} alt="Phim" className="movie-thumbnail" />
-      </div>
-    ))}
-  </div>
-  {visiblePhimLe < phimLe.length && (
-    <button onClick={() => setVisiblePhimLe((prev) => prev + 6)} className="load-more-btn">
-      Xem thêm
-    </button>
-  )}
-</div>
+      {/* Các section phim: Trending bây giờ random */}
+      {sections.map(({ title, slug, data }) => (
+        <div className="movie-section" key={slug}>
+          <h2>{title}</h2>
+          <div className="movie-list">
+            {data.slice(0, VISIBLE_COUNT).map((m) => (
+              <div
+                key={m.id}
+                className="movie-item"
+                onClick={() => navigate(`/movies/${m.id}`)}
+                style={{ cursor: "pointer" }}
+              >
+                <img
+                  src={m.thumbnail}
+                  alt={m.name}
+                  className="movie-thumbnail"
+                />
+              </div>
+            ))}
+          </div>
+          <button
+            className="load-more-btn"
+            onClick={() => navigate(`/category/${slug}`)}
+          >
+            Xem thêm
+          </button>
+        </div>
+      ))}
     </div>
   );
 };
