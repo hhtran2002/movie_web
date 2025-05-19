@@ -39,12 +39,16 @@ export const getMovieDetailsService = async (movieId: number) => {
 
 export const getMoviesByCategoryService = async (categoryName: string) => {
   const movieRepo = AppDataSource.getRepository(Movie);
-  return movieRepo
+  const result = await movieRepo
     .createQueryBuilder("movie")
     .innerJoinAndSelect("movie.categories", "category")
     .where("category.name = :categoryName", { categoryName })
     .getMany();
+
+  console.log("Kết quả:", result); 
+  return result;
 };
+
 
 export const searchMoviesService = async (keyword: string) => {
   const movieRepo = AppDataSource.getRepository(Movie);

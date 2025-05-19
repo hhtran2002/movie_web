@@ -1,10 +1,9 @@
-
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import "../styles/videoPlayer.css"
 
 const extractYouTubeId = (url: string): string => {
-  const match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/)
+  const match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)||youtu\.be\/)([a-zA-Z0-9_-]{11})/)
   return match ? match[1] : ""
 }
 
@@ -21,13 +20,11 @@ const VideoPlayer = () => {
   const [movieDetails, setMovieDetails] = useState<any>(null)
   const [currentEpisodeUrl, setCurrentEpisodeUrl] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(true)
-
   const [danhGias, setDanhGia] = useState<Rating[]>([])
   const [newReview, setNewReview] = useState<string>("")
   const [newRating, setNewRating] = useState<number>(5)
   const [hoverRating, setHoverRating] = useState<number>(0)
 
-  // Fetch movie details
   const fetchMovieDetails = async () => {
     try {
       setLoading(true)
@@ -47,7 +44,6 @@ const VideoPlayer = () => {
     }
   }
 
-  // Fetch comments & ratings
   const fetchDanhGia = async () => {
     try {
       const res = await fetch(`http://localhost:5000/api/ratings/movie/${id}`)
@@ -59,7 +55,6 @@ const VideoPlayer = () => {
     }
   }
 
-  // Submit new rating/comment
   const handleSubmit = async () => {
     try {
       const token = localStorage.getItem("token")
@@ -101,7 +96,7 @@ const VideoPlayer = () => {
       {youtubeId ? (
         <div className="video-wrapper">
           <iframe
-            src={`https://www.youtube.com/embed/${youtubeId}`}
+            src={`https://www.youtube.com/embed/${youtubeId}?modestbranding=1&rel=0&controls=1`}
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             title="Trình chiếu video"
@@ -111,7 +106,6 @@ const VideoPlayer = () => {
         <div>Link video không hợp lệ</div>
       )}
 
-      {/* Video Info and Rating */}
       <div className="video-info">
         <h2 className="video-title">{movieDetails?.name}</h2>
         <div className="video-actions">
@@ -132,7 +126,6 @@ const VideoPlayer = () => {
         </div>
       </div>
 
-      {/* Tabs */}
       <div className="tab-navigation">
         <button
           className={`tab-button ${activeTab === "episodes" ? "active" : ""}`}
@@ -160,7 +153,6 @@ const VideoPlayer = () => {
                   className={`episode-item ${isSelected ? "selected" : ""}`}
                   onClick={async () => {
                     setCurrentEpisodeUrl(ep.ep_link)
-
                     try {
                       const token = localStorage.getItem("token")
                       if (token) {
@@ -186,7 +178,7 @@ const VideoPlayer = () => {
                     alt={`Episode ${ep.ep_number}`}
                     className="episode-thumbnail"
                   />
-                  <p>Tập {ep.ep_number}</p>
+                  <p className="episode-title">Tập {ep.ep_number}</p>
                 </div>
               )
             })}
@@ -195,8 +187,6 @@ const VideoPlayer = () => {
 
         {activeTab === "comments" && (
           <div className="comments">
-     
-            {/* Form thêm bình luận */}
             <div className="comment-input-container">
               <div className="comment-input-wrapper">
                 <input
@@ -212,7 +202,6 @@ const VideoPlayer = () => {
               </div>
             </div>
 
-            {/* Danh sách bình luận */}
             <div className="comment-list">
               {danhGias.length === 0 && <p>Chưa có bình luận nào.</p>}
               {danhGias.map((dg) => (

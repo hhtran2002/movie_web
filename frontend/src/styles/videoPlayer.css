@@ -209,7 +209,10 @@
 
 /* Episodes section */
 .episodes {
-  padding: 0;
+  padding: 24px 32px; /* Giống như .tab-content */
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .episodes h3 {
@@ -219,32 +222,34 @@
 }
 
 .episode-item {
-  padding: 16px;
+  
+  display: flex;
+  align-items: center;
+  gap: 680px;
+  padding: 12px 16px;
   border: 1px solid #333;
   border-radius: 4px;
   margin-bottom: 12px;
   cursor: pointer;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.episode-item:hover {
-  background-color: #222;
-}
-
-.episode-item.selected {
-  border-color: #e53e3e;
-  background-color: rgba(229, 62, 62, 0.1);
+  transition: background-color 0.2s;
 }
 
 .episode-thumbnail {
   width: 120px;
   height: 68px;
   object-fit: cover;
-  border-radius: 3px;
+  border-radius: 4px;
+  flex-shrink: 0;
 }
+
+.episode-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: white;
+  flex-grow: 1;
+  word-break: break-word;
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 768px) {

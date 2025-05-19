@@ -15,7 +15,8 @@ import Admin from './pages/Admin';
 
 import Account     from './pages/Account';
 import History     from './pages/History';
-import SearchResults from './pages/SearchResults';
+import SearchResults from './component/SearchResults';
+import Category from './component/Category';
 const App: React.FC = () => {
   return (
     <div className="App">
@@ -33,6 +34,7 @@ const App: React.FC = () => {
         <Route path="/account"         element={<Account />} />
         <Route path="/history"         element={<History />} />
 
+        <Route path="/category/:slug" element={<Category />} />
         <Route path="/search" element={<SearchResults />} />
         {/* ADMIN phải có dấu * để cho phép nested route */}
         <Route path="/admin/*" element={<Admin />} />

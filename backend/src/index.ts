@@ -11,7 +11,7 @@ import ratingRouter from "./routes/rating";
 import searchRoutes from "./routes/movie";
 const app = express();
 
-// ✅ Thêm cấu hình CORS
+// Thêm cấu hình CORS
 app.use(cors({
     origin: "http://localhost:5173", // Cho phép frontend React truy cập
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
