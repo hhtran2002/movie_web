@@ -1,25 +1,45 @@
 .header {
   position: fixed;
   top: 20px;
-  left: 0;
-  width: 100%;
+  left: 30px;
+  width: 90%;
   z-index: 999;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 24px;
-  margin-bottom: 100px;
-  
+  padding: 12px 32px;
+  background-color: transparent;
+}
+.toggle-header-btn {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 1000;
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
 
+.toggle-header-btn:hover {
+  color: #0ea5e9;
+}
+
+
+/* Icon trái */
 .nav-icons {
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  margin-left: 300px;
-  transform: translateY(3px);
 }
 
+/* Link icon */
 .nav-link {
   color: #d4d4d8;
   transition: color 0.2s;
@@ -29,17 +49,18 @@
   color: white;
 }
 
+/* Thanh tìm kiếm */
 .search-bar {
-  max-width: 350px;
-  width: 100%;
-  margin: 0 auto; /* căn giữa */
+  flex: 1; /* giúp mở rộng chiếm khoảng trống */
+  max-width: 50%;
+  margin: 0 1rem;
   position: relative;
 }
 
-
+/* Input */
 .search-bar input {
   width: 100%;
-  padding: 0.5rem 2.5rem 0.5rem 1rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   background-color: #27272a;
   border: 1px solid #3f3f46;
   border-radius: 9999px;
@@ -54,12 +75,12 @@
 .search-bar input:focus {
   outline: none;
   border-color: #52525b;
-  
 }
 
+/* Nút tìm */
 .search-button {
+  right: 3px;
   position: absolute;
-  right: 0.75rem;
   top: 50%;
   transform: translateY(-50%);
   background: transparent;
@@ -71,16 +92,19 @@
   justify-content: center;
 }
 
+/* Nút phải */
 .auth-buttons {
   display: flex;
   gap: 0.5rem;
-  transform: translateX(-10px);
+
 }
 
+/* Link bọc nút */
 .auth-link {
   text-decoration: none;
 }
 
+/* Nút đăng nhập */
 .login-btn-header {
   padding: 0.375rem 0.75rem;
   font-size: 0.875rem;
@@ -96,6 +120,7 @@
   background-color: #27272a;
 }
 
+/* Nút đăng ký */
 .register-btn-header {
   padding: 0.375rem 0.75rem;
   font-size: 0.875rem;
@@ -105,7 +130,6 @@
   border-radius: 0.25rem;
   cursor: pointer;
   transition: background-color 0.2s;
-  margin-right: 300px;
 }
 
 .register-btn-header:hover {
@@ -117,8 +141,11 @@
   .header {
     flex-wrap: wrap;
     gap: 1rem;
+    justify-content: center;
   }
-
+  .toggle-header-btn {
+    display: flex; /* chỉ hiện trên màn hình nhỏ */
+  }
   .search-bar {
     order: 3;
     max-width: 100%;

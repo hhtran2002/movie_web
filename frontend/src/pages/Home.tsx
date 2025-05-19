@@ -51,38 +51,13 @@ const Home: React.FC = () => {
       }
     };
 
-    const fetchPhimLe = async () => {
-      try {
-        const res = await fetch("http://localhost:5000/api/movies/phimle");
-        if (!res.ok) throw new Error("Lỗi khi lấy phim lẻ");
-        const data = await res.json();
-        setPhimLe(Array.isArray(data) ? data : []);
-      } catch (error) {
-        console.error("Lỗi khi lấy phim lẻ:", error);
-        setPhimLe([]);
-      }
-    };
-
-    const fetchPhimBo = async () => {
-      try {
-        const res = await fetch("http://localhost:5000/api/movies/phimbo");
-        if (!res.ok) throw new Error("Lỗi khi lấy phim bộ");
-        const data = await res.json();
-        setPhimBo(Array.isArray(data) ? data : []);
-      } catch (error) {
-        console.error("Lỗi khi lấy phim bộ:", error);
-        setPhimBo([]);
-      }
-    };
 
     const fetchData = async () => {
       setIsLoading(true);
       await Promise.all([
         fetchSlider(),
-        fetchPhimLe(),
-        fetchPhimBo(),
-        fetchCategory("Phim bộ", setPhimBo),
-        fetchCategory("Phim lẻ", setPhimLe),
+        fetchCategory("Phim Bộ", setPhimBo),
+        fetchCategory("Phim Lẻ", setPhimLe),
       ]);
       setIsLoading(false);
     };
