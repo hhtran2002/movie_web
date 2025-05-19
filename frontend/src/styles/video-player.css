@@ -2,6 +2,7 @@
 
 /* Container chính: bỏ width cố định, cho phép 100% chiều ngang và giới hạn max-width */
 .video-container {
+  margin-top: 100px;
   width: 100%;
   max-width: 1280px; /* hoặc 1200px nếu bạn muốn giới hạn như trước */
   margin: 0 auto;

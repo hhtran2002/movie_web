@@ -1,18 +1,23 @@
-/* frontend/src/styles/login.css */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .login-container {
   width: 500px;
   height: 750px;
-  background: linear-gradient(135deg, rgba(98, 93, 121, 0.5) 0%, rgba(167, 139, 255, 0.5) 100%); /* Gradient nửa trong suốt */
+  background: linear-gradient(135deg, rgba(98, 93, 121, 0.5) 0%, rgba(167, 139, 255, 0.5) 100%);
   color: #fff;
   text-align: center;
-  /* padding: 100px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   border-radius: 30px;
-  margin-left: 260px;
+  margin: 0 auto;
 }
 
 h3 {

@@ -143,8 +143,10 @@ const MovieAdmin: React.FC = () => {
         </button>
       </div>
 
-      <table className="movie-table">
-        <thead>
+      <div className="movie-table-wrapper">
+  <table className="movie-table">
+    {/* thead và tbody */}
+    <thead>
           <tr>
             <th>ID</th>
             <th>Tên phim</th>
@@ -218,7 +220,8 @@ const MovieAdmin: React.FC = () => {
             </tr>
           )}
         </tbody>
-      </table>
+  </table>
+</div>
     </div>
   )
 }

@@ -1,36 +1,70 @@
 .add-movie-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px;
+  max-width: 800px;            /* 📌 tăng chiều rộng tối đa */
+  width: 100%;                  /* đảm bảo responsive */
+  margin: 60px auto;
+  background: linear-gradient(135deg, #1e1e2f, #2e2e48);
+  padding: 48px 60px;          /* 📌 thêm padding ngang rộng hơn */
+  border-radius: 16px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  color: #f0f0f0;
+  font-family: "Segoe UI", sans-serif;
+}
+
+
+.add-movie-container h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #fff;
 }
 
 .add-movie-form {
   display: flex;
   flex-direction: column;
-  width: 300px;
+  gap: 16px;
 }
 
 .add-movie-form input,
 .add-movie-form textarea,
 .add-movie-form select {
-  margin-bottom: 15px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: none;
   font-size: 16px;
+  background-color: #2a2a44;
+  color: white;
+  outline: none;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.add-movie-form input::placeholder,
+.add-movie-form textarea::placeholder {
+  color: #aaa;
+}
+
+.add-movie-form input:focus,
+.add-movie-form textarea:focus,
+.add-movie-form select:focus {
+  box-shadow: 0 0 0 2px #007bff;
+}
+
+.add-movie-form textarea {
+  min-height: 120px;
+  resize: vertical;
 }
 
 .add-movie-form button {
-  padding: 10px;
   background-color: #007bff;
   color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  padding: 14px;
   font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .add-movie-form button:hover {
-  background-color: #5f9fe4;
+  background-color: #0056b3;
 }

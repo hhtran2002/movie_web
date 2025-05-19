@@ -1,72 +1,152 @@
-.movie-admin-container {
-  padding: 20px;
-  color: white; /* toàn bộ chữ trắng */
-  font-weight: bold;
-
+/* Vùng hiển thị cuộn riêng cho bảng */
+.movie-table-wrapper {
+  margin-top: 50px;
+  max-height: 600px;     /* hoặc dùng 60vh */
+  overflow-y: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 }
 
-/* HEADER */
+/* Thanh cuộn đẹp */
+.movie-table-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+.movie-table-wrapper::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+.movie-table-wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* Phần chứa tổng thể */
+.movie-admin-container {
+  margin-top: 50px;
+  min-height: 80vh; /* ✅ để phần chứa đủ chiều cao trang */
+  padding: 32px;
+  background: linear-gradient(to right, #1e1e2f, #2e2e48);
+  font-family: "Segoe UI", sans-serif;
+  color: #f0f0f0;
+}
+
+
+/* Header */
 .movie-admin-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
-
 .movie-admin-header h2 {
+  font-size: 1.8rem;
   margin: 0;
-  color: white;
 }
-
-/* BUTTON: Thêm phim */
 .add-movie-btn {
-  background: #007bff;
+  background: #28a745;
   color: white;
   padding: 10px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+.add-movie-btn:hover {
+  background: #218838;
 }
 
-/* TABLE */
+/* Bảng danh sách phim */
 .movie-table {
   width: 100%;
   border-collapse: collapse;
-  color: white; /* nội dung bảng chữ trắng */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
 }
-
 .movie-table th,
 .movie-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
+  padding: 14px 18px;
+  text-align: center;
 }
-
 .movie-table th {
-  background-color: #333; /* đổi từ xám nhạt → xám đậm hơn cho nền tối */
-  color: white;
+  background-color: #2c2f3f;
+  color: #ffffff;
+  font-weight: bold;
+}
+.movie-table tbody tr:nth-child(even) {
+  background-color: #2a2a44;
+}
+.movie-table tbody tr:nth-child(odd) {
+  background-color: #24243a;
 }
 
-/* CÁC BUTTON TRONG ACTIONS */
+/* Cột nút hành động */
 .action-buttons {
   display: flex;
   gap: 8px;
+  justify-content: center;
 }
-
-.add-episode-btn {
-  background: #007bff;
-  color: white;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
+.add-episode-btn,
+.view-episodes-btn,
 .delete-movie-btn {
-  background: #dc3545;
-  color: white;
   padding: 6px 12px;
   border: none;
   border-radius: 4px;
+  font-weight: 600;
   cursor: pointer;
+  font-size: 0.9rem;
+  transition: transform 0.15s ease, background-color 0.2s ease;
+}
+.add-episode-btn {
+  background-color: #007bff;
+  color: white;
+}
+.add-episode-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+.view-episodes-btn {
+  background-color: #ffc107;
+  color: #000;
+}
+.view-episodes-btn:hover {
+  background-color: #e0a800;
+  transform: scale(1.05);
+}
+.delete-movie-btn {
+  background-color: #dc3545;
+  color: white;
+}
+.delete-movie-btn:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
+
+/* Danh sách tập phim */
+.episodes-list {
+  background-color: #1f1f30;
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 10px;
+  color: #eaeaea;
+  max-height: 300px;
+  overflow-y: auto;
+  transition: all 0.3s ease;
+}
+.episode-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+}
+.delete-episode-btn {
+  padding: 4px 10px;
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.delete-episode-btn:hover {
+  background-color: #d9363e;
 }
