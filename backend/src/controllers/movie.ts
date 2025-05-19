@@ -14,7 +14,7 @@ import {
   getEpisodesByMovieService,
   getRatingByMovieIdService,
   // searchMovies
-} from "../services/movieService";
+} from "../services/movie";
 
 // Lấy tất cả phim
 export const getAllMovies = async (req: Request, res: Response, next: NextFunction): Promise<void> => {

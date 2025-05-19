@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 //Load biến môi trường
 dotenv.config();
 
-console.log("🔍 DB_USER:", process.env.DB_USER);
+console.log("DB_USER:", process.env.DB_USER);
 
 //Tạo DataSource để kết nối SQL Server
 export const AppDataSource = new DataSource({

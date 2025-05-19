@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import '../styles/History.css';
+import '../styles/history.css';
 
 interface HistoryItem {
   id: number;
@@ -24,7 +24,7 @@ const History: React.FC = () => {
       .then(res => setList(res.data))
       .catch(err => {
         console.error(err);
-        alert('❌ Không tải được lịch sử xem phim.');
+        alert('Không tải được lịch sử xem phim.');
       });
   }, []);
 

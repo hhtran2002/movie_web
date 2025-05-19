@@ -1,7 +1,7 @@
 
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
-import { AuthService } from "../services/AuthService";
+import { AuthService } from "../services/auth";
 
 export class AuthController {
     static async register(req: Request, res: Response): Promise<void> {

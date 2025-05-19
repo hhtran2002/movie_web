@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../styles/AddEpisode.css"; // Thêm import CSS
+import "../styles/addEpisode.css"; // Thêm import CSS
 
 const AddEpisode = () => {
   const [params] = useSearchParams();
@@ -14,7 +14,7 @@ const AddEpisode = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!movieId) {
-      alert("❌ Movie ID is missing.");
+      alert("Không tìm thấy ID phim.");
       return;
     }
     try {
@@ -23,11 +23,11 @@ const AddEpisode = () => {
         ep_link: epLink,
         ep_number: Number(epNumber),
       });
-      alert("✅ Thêm tập phim thành công!");
+      alert("Thêm tập phim thành công!");
       navigate(`/admin/movies/list`);
     } catch (err: any) {
       console.error("Lỗi khi thêm tập phim:", err.response?.data || err.message);
-      alert(`❌ Lỗi khi thêm tập phim: ${err.response?.data?.message || err.message}`);
+      alert(`Lỗi khi thêm tập phim: ${err.response?.data?.message || err.message}`);
     }
   };
 

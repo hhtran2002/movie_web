@@ -2,13 +2,13 @@ import express from "express";
 import cors from "cors"; // 👈 thêm dòng này
 import "reflect-metadata";
 import { AppDataSource } from "../src/config/db";
-import authRoutes from "./routes/authRoutes";
-import movieRoutes from "./routes/movieRoutes";
-import adminRouter from "./routes/adminRoutes";
-import userRoutes from "./routes/userRoutes";       
-import historyRoutes from "./routes/historyRoutes"; 
-import ratingRouter from "./routes/ratingRoutes";
-import searchRoutes from "./routes/movieRoutes";
+import authRoutes from "./routes/auth";
+import movieRoutes from "./routes/movie";
+import adminRouter from "./routes/admin";
+import userRoutes from "./routes/user";       
+import historyRoutes from "./routes/history"; 
+import ratingRouter from "./routes/rating";
+import searchRoutes from "./routes/movie";
 const app = express();
 
 // ✅ Thêm cấu hình CORS

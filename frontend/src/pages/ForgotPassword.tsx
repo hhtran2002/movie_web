@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/register.css"; // Dùng chung CSS với trang đăng ký
+import "../styles/forgotPassword.css"; 
 
 const ForgotPassword: React.FC = () => {
   const [formData, setFormData] = useState({ email: "" });
@@ -18,10 +18,10 @@ const ForgotPassword: React.FC = () => {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email) {
-      newErrors.email = "Email is required";
+      newErrors.email = "Vui lòng nhập email";
       isValid = false;
     } else if (!emailRegex.test(formData.email)) {
-      newErrors.email = "Invalid email format";
+      newErrors.email = "Email không đúng định dạng";
       isValid = false;
     }
 
@@ -42,42 +42,43 @@ const ForgotPassword: React.FC = () => {
 
       if (!response.ok) {
         const err = await response.json();
-        throw new Error(err.message || "Failed to send password reset request");
+        throw new Error(err.message || "Gửi yêu cầu thất bại");
       }
 
-      setMessage("Password reset request sent! Please check your email.");
+      setMessage("Yêu cầu đặt lại mật khẩu đã được gửi! Vui lòng kiểm tra email của bạn.");
       setFormData({ email: "" });
     } catch (error: any) {
       setErrors((prev) => ({
         ...prev,
-        general: error.message || "An error occurred, please try again",
+        general: error.message || "Đã xảy ra lỗi, vui lòng thử lại.",
       }));
     }
   };
 
   return (
-    <div className="register-container">
-      <h2>FORGOT PASSWORD</h2>
-      {errors.general && <p className="error">{errors.general}</p>}
-      {message && <p className="success">{message}</p>}
-      <form className="register-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-          {errors.email && <p className="error">{errors.email}</p>}
-        </div>
-        <button type="submit" className="register-btn">
-          SEND REQUEST
-        </button>
-      </form>
-    </div>
+    <div className="forgot-container">
+    <h2>QUÊN MẬT KHẨU</h2>
+    {errors.general && <p className="error">{errors.general}</p>}
+    {message && <p className="success">{message}</p>}
+    <form className="forgot-form" onSubmit={handleSubmit}>
+      <div className="form-group">
+        <input
+          id="email"
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          placeholder="Nhập email của bạn"
+        />
+        {errors.email && <p className="error">{errors.email}</p>}
+      </div>
+      <button type="submit" className="forgot-btn">
+        GỬI YÊU CẦU
+      </button>
+    </form>
+  </div>
+
   );
 };
 

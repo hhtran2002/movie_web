@@ -1,16 +1,16 @@
 
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import './App.css';
+import './app.css';
 import Header from './component/Header';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import ForgotPassword from './pages/Forgot-password';
-import ResetPassword from './pages/Reset-password';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import Home from './pages/Home';
 
 import MovieDetail from './pages/MovieDetail';
-import Videoplayer from './pages/Video-player';
+import Videoplayer from './pages/VideoPlayer';
 import Admin from './pages/Admin';
 
 import Account     from './pages/Account';

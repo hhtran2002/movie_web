@@ -36,7 +36,7 @@ const Login: React.FC = () => {
   return (
     <div className="login-page">
       <div className="login-container">
-        <h3>Sign In</h3>
+        <h3>ĐĂNG NHẬP</h3>
         <form className="login-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <input
@@ -50,17 +50,17 @@ const Login: React.FC = () => {
           <div className="form-group">
             <input
               type="password"
-              placeholder="Password"
+              placeholder="Mật Khẩu"
               value={password}
               onChange={e => setPassword(e.target.value)}
               required
             />
           </div>
           <Link to="/forgot-password" className="forgot-password">
-            Forgot Password?
+            Quên mật khẩu?
           </Link>
           <button type="submit" className="sign-in-btn">
-            Sign In
+            ĐĂNG NHẬP
           </button>
         </form>
       </div>

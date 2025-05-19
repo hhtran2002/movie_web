@@ -1,7 +1,7 @@
-// src/pages/SearchResults.tsx
+
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import "../styles/SearchResults.css";
+import "../styles/searchResults.css";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -22,11 +22,11 @@ const SearchResults: React.FC = () => {
     if (query) {
       fetch(`/api/movies/search?query=${encodeURIComponent(query)}`)
         .then(res => {
-          if (!res.ok) throw new Error("Network response was not ok");
+          if (!res.ok) throw new Error("Kết nối không thành công");
           return res.json();
         })
         .then((data: Movie[]) => {
-          console.log("🎯 Kết quả tìm kiếm:", data);
+          console.log("Kết quả tìm kiếm:", data);
           setResults(data);
         })
         .catch(err => console.error("Lỗi khi tìm kiếm:", err));

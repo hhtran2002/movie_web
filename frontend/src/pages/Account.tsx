@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';        // ← import Link
 import axios from 'axios';
-import '../styles/Account.css';
+import '../styles/account.css';
 
 interface UserInfo {
   id: number;
@@ -21,7 +21,7 @@ axios.get<{ user: UserInfo }>("http://localhost:5000/api/user/account", {
   .then(res => setUser(res.data.user))
   .catch(err => {
     console.error(err);
-    alert('❌ Không tải được thông tin tài khoản.');
+    alert('Không tải được thông tin tài khoản.');
   });
   }, []);
 
@@ -32,7 +32,7 @@ axios.get<{ user: UserInfo }>("http://localhost:5000/api/user/account", {
       <h2>👤 Thông tin tài khoản</h2>
       <div className="account-info">
         <p><strong>ID:</strong> {user.id}</p>
-        <p><strong>Username:</strong> {user.username}</p>
+        <p><strong>Tên Người Dùng:</strong> {user.username}</p>
         <p><strong>Email:</strong> {user.email}</p>
         
       </div>
@@ -40,7 +40,7 @@ axios.get<{ user: UserInfo }>("http://localhost:5000/api/user/account", {
       {/* Nút dẫn đến lịch sử xem phim */}
       <div className="account-actions">
         <Link to="/history" className="history-button">
-          🕒 Xem lịch sử xem phim
+          Xem lịch sử xem phim
         </Link>
       </div>
     </div>

@@ -6,7 +6,7 @@ import {
   deleteMovie,
   createEpisode,
   deleteEpisode
-} from "../controllers/adminController";
+} from "../controllers/admin";
 
 const router = express.Router();
 

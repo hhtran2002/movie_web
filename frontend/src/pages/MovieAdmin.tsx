@@ -42,7 +42,7 @@ const MovieAdmin: React.FC = () => {
       try {
         const token = localStorage.getItem("token")
         if (!token) {
-          alert("❌ Vui lòng đăng nhập.")
+          alert("Vui lòng đăng nhập.")
           navigate("/login")
           return
         }
@@ -52,7 +52,7 @@ const MovieAdmin: React.FC = () => {
         setMovies(res.data)
       } catch (err: any) {
         console.error("Lỗi khi lấy danh sách phim:", err.response?.data || err.message)
-        alert("❌ Không lấy được danh sách phim.")
+        alert("Không lấy được danh sách phim.")
       }
     }
     fetchMovies()
@@ -65,7 +65,7 @@ const MovieAdmin: React.FC = () => {
         setLoadingEpisodes(true)
         const token = localStorage.getItem("token")
         if (!token) {
-          alert("❌ Vui lòng đăng nhập.")
+          alert("Vui lòng đăng nhập.")
           navigate("/login")
           return
         }
@@ -75,7 +75,7 @@ const MovieAdmin: React.FC = () => {
         setEpisodes(res.data.episodes || [])
       } catch (err: any) {
         console.error("Lỗi khi lấy tập phim:", err.response?.data || err.message)
-        alert(`❌ Lỗi: ${err.response?.data?.message || "Không lấy được danh sách tập phim."}`)
+        alert(`Lỗi: ${err.response?.data?.message || "Không lấy được danh sách tập phim."}`)
         setEpisodes([])
       } finally {
         setLoadingEpisodes(false)
@@ -110,10 +110,10 @@ const MovieAdmin: React.FC = () => {
         setSelectedMovieId(null)
         setEpisodes([])
       }
-      alert("✅ Xóa phim thành công.")
+      alert("Xóa phim thành công.")
     } catch (err: any) {
       console.error("Lỗi khi xóa phim:", err.response?.data || err.message)
-      alert("❌ Xóa phim thất bại.")
+      alert("Xóa phim thất bại.")
     }
   }
 
@@ -127,10 +127,10 @@ const MovieAdmin: React.FC = () => {
       })
       // Cập nhật danh sách tập phim sau khi xóa
       setEpisodes((prev) => prev.filter((ep) => ep.id !== episodeId))
-      alert("✅ Xóa tập phim thành công.")
+      alert("Xóa tập phim thành công.")
     } catch (err: any) {
       console.error("Lỗi khi xóa tập phim:", err.response?.data || err.message)
-      alert("❌ Xóa tập phim thất bại.")
+      alert("Xóa tập phim thất bại.")
     }
   }
 

@@ -12,7 +12,7 @@ import {
   watchEpisode,
   getEpisodesByMovie,
   search
-} from "../controllers/movieController"; 
+} from "../controllers/movie"; 
 
 const router = express.Router();
 

@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import "../styles/moviedetail.css";
+import "../styles/movieDetail.css";
 
 interface Country {
   id: number;
@@ -97,7 +97,7 @@ const MovieDetail: React.FC = () => {
             {/* Nút xem phim */}
             <div className="watch-button-container">
               <Link to={`/watch/${movie.id}`} className="watch-button">
-                🎬 Xem phim
+                Xem phim
               </Link>
             </div>
 

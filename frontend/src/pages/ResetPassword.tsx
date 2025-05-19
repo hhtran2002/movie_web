@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import "../styles/register.css";
+import "../styles/resetPassword.css"; // Import CSS styles
 
 const ResetPassword: React.FC = () => {
   const navigate = useNavigate();
@@ -103,13 +103,12 @@ const ResetPassword: React.FC = () => {
   };
 
   return (
-    <div className="register-container">
-      <h2>RESET PASSWORD</h2>
+    <div className="reset-container">
+      <h2>ĐẶT LẠI MẬT KHẨU</h2>
       {errors.general && <p className="error">{errors.general}</p>}
       {message && <p className="success">{message}</p>}
-      <form className="register-form" onSubmit={handleSubmit}>
+      <form className="reset-form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="password">Password</label>
           <input
             id="password"
             type="password"
@@ -117,11 +116,11 @@ const ResetPassword: React.FC = () => {
             value={formData.password}
             onChange={handleChange}
             required
+            placeholder="Mật Khẩu Mới"
           />
           {errors.password && <p className="error">{errors.password}</p>}
         </div>
         <div className="form-group">
-          <label htmlFor="confirmPassword">Confirm Password</label>
           <input
             id="confirmPassword"
             type="password"
@@ -129,11 +128,12 @@ const ResetPassword: React.FC = () => {
             value={formData.confirmPassword}
             onChange={handleChange}
             required
+            placeholder="Nhập Lại Mật Khẩu "
           />
           {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
         </div>
-        <button type="submit" className="register-btn">
-          RESET
+        <button type="submit" className="reset-btn">
+          ĐẶT LẠI
         </button>
       </form>
     </div>

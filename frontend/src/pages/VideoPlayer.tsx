@@ -1,9 +1,7 @@
-"use client"
 
-// src/components/VideoPlayer.tsx
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import "../styles/video-player.css"
+import "../styles/videoPlayer.css"
 
 const extractYouTubeId = (url: string): string => {
   const match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/)
@@ -94,7 +92,7 @@ const VideoPlayer = () => {
     }
   }, [id])
 
-  if (loading) return <div className="loading">Loading movie details...</div>
+  if (loading) return <div className="loading">Đang tải thông tin phim...</div>
 
   const youtubeId = extractYouTubeId(currentEpisodeUrl)
 
@@ -106,8 +104,8 @@ const VideoPlayer = () => {
             src={`https://www.youtube.com/embed/${youtubeId}`}
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            title="YouTube video player"
-          />
+            title="Trình chiếu video"
+          ></iframe>
         </div>
       ) : (
         <div>Link video không hợp lệ</div>
@@ -204,7 +202,7 @@ const VideoPlayer = () => {
                 <input
                   type="text"
                   className="comment-input"
-                  placeholder="Viết nhận xét..."
+                  placeholder="Bình luận..."
                   value={newReview}
                   onChange={(e) => setNewReview(e.target.value)}
                 />

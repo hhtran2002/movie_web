@@ -125,12 +125,11 @@ const Register: React.FC = () => {
       {errors.general && <p className="error">{errors.general}</p>}
       <form className="register-form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="name">Họ Tên</label>
           <input
             id="name"
             type="text"
             name="name"
-            placeholder="Nhập họ và tên"
+            placeholder="Họ Và Tên"
             value={formData.name}
             onChange={handleChange}
             required
@@ -138,12 +137,11 @@ const Register: React.FC = () => {
           {errors.name && <p className="error">{errors.name}</p>}
         </div>
         <div className="form-group">
-          <label htmlFor="email">Email</label>
           <input
             id="email"
             type="email"
             name="email"
-            placeholder="Nhập email"
+            placeholder="Email"
             value={formData.email}
             onChange={handleChange}
             required
@@ -151,7 +149,6 @@ const Register: React.FC = () => {
           {errors.email && <p className="error">{errors.email}</p>}
         </div>
         <div className="form-group">
-          <label htmlFor="phone">Số điện thoại</label>
           <input
             id="phone"
             type="tel"
@@ -160,17 +157,16 @@ const Register: React.FC = () => {
             onChange={handleChange}
             required
             pattern="\d{10,11}"
-            placeholder="Nhập số điện thoại"
+            placeholder="Số Điện Thoại"
           />
           {errors.phone && <p className="error">{errors.phone}</p>}
         </div>
         <div className="form-group">
-          <label htmlFor="password">Mật Khẩu</label>
           <input
             id="password"
             type="password"
             name="password"
-            placeholder="Nhập mật khẩu"
+            placeholder="Mật Khẩu"
             value={formData.password}
             onChange={handleChange}
             required
@@ -178,7 +174,6 @@ const Register: React.FC = () => {
           {errors.password && <p className="error">{errors.password}</p>}
         </div>
         <div className="form-group">
-          <label htmlFor="confirmPassword">Xác Nhận Mật Khẩu</label>
           <input
             id="confirmPassword"
             type="password"

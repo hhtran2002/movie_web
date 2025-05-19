@@ -6,7 +6,7 @@ import {
   deleteMovieService,
   createEpisodeService,
   deleteEpisodeService
-} from "../services/adminService";
+} from "../services/admin";
 
 // API lấy danh sách phim
 export const getAllMovies = async (req: Request, res: Response): Promise<void> => {

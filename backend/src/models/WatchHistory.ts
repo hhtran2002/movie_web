@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
-import { User } from "./User";
-import { Movie } from "./Movie";
+import { User } from "./user";
+import { Movie } from "./movie";
 
 @Entity()
 export class WatchHistory {

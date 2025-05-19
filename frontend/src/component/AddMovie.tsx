@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../styles/addmovie.css";
+import "../styles/addMovie.css";
 
 const AddMovie = () => {
   const navigate = useNavigate();
@@ -29,11 +29,11 @@ const AddMovie = () => {
         release_year: Number(form.release_year),
         total_ep: Number(form.total_ep),
       });
-      alert("✅ Thêm phim thành công");
+      alert("Thêm phim thành công");
       navigate("/admin/movies/list");
     } catch (err: any) {
       console.error("Lỗi khi thêm phim:", err.response?.data || err.message);
-      alert(`❌ Lỗi khi thêm phim: ${err.response?.data?.message || err.message}`);
+      alert(`Lỗi khi thêm phim: ${err.response?.data?.message || err.message}`);
     }
   };
 
@@ -79,14 +79,14 @@ const AddMovie = () => {
           name="thumbnail"
           value={form.thumbnail}
           onChange={handleChange}
-          placeholder="Link thumbnail"
+          placeholder="Liên kết ảnh bìa"
           required
         />
         <input
           name="trailer_url"
           value={form.trailer_url}
           onChange={handleChange}
-          placeholder="Link trailer"
+          placeholder="Liên kết trailer"
           required
         />
         <button type="submit">Thêm phim</button>

@@ -1,11 +1,11 @@
 import "reflect-metadata";
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable } from "typeorm";
-import { Genre } from "./Genre";
-import { Category } from "./Category";
-import { Country } from "./Country";
-import { Episode } from "./Episode";
-import { Rating } from "./Rating";
-import { WatchHistory } from "./WatchHistory";
+import { Genre } from "./genre";
+import { Category } from "./category";
+import { Country } from "./country";
+import { Episode } from "./episode";
+import { Rating } from "./rating";
+import { WatchHistory } from "./watchHistory";
 
 @Entity()
 export class Movie {
