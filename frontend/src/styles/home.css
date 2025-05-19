@@ -129,3 +129,33 @@ p {
   font-size: 14px;
   margin-top: 5px;
 }
+
+.movie-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+.movie-item {
+  width: 160px;
+  transition: transform 0.3s ease;
+}
+
+.movie-item:hover {
+  transform: scale(1.05);
+}
+
+.load-more-btn {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.load-more-btn:hover {
+  background-color: #0056b3;
+}

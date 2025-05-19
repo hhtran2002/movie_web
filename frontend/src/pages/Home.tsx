@@ -20,6 +20,10 @@ const Home: React.FC = () => {
   const [sliderIndex, setSliderIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+  const [visibleTrending, setVisibleTrending] = useState(5);
+  const [visiblePhimBo, setVisiblePhimBo] = useState(5);
+  const [visiblePhimLe, setVisiblePhimLe] = useState(5);
+
 
 
   useEffect(() => {
@@ -159,50 +163,55 @@ const Home: React.FC = () => {
       </div>
 
       <div className="movie-section">
-        <h2>THỊNH HÀNH</h2>
-        <div className="movie-list">
-          {movies.length > 0 ? (
-            movies.map((movie) => (
-              <div key={movie.id} className="movie-item" onClick={() => navigate(`/movies/${movie.id}`)} style={{ cursor: "pointer" }}>
-                <img src={movie.thumbnail} alt="Phim" className="movie-thumbnail" />
-              </div>
-            ))
-          ) : (
-            <div>Không có phim thịnh hành</div>
-          )}
-        </div>
+  <h2>THỊNH HÀNH</h2>
+  <div className="movie-list">
+    {movies.slice(0, visibleTrending).map((movie) => (
+      <div key={movie.id} className="movie-item" onClick={() => navigate(`/movies/${movie.id}`)} style={{ cursor: "pointer" }}>
+        <img src={movie.thumbnail} alt="Phim" className="movie-thumbnail" />
       </div>
+    ))}
+  </div>
+  {visibleTrending < movies.length && (
+    <button onClick={() => setVisibleTrending((prev) => prev + 6)} className="load-more-btn">
+      Xem thêm
+    </button>
+  )}
+</div>
+
+
+
+      <div className="movie-section">
+  <h2>PHIM BỘ</h2>
+  <div className="movie-list">
+    {phimBo.slice(0, visiblePhimBo).map((movie) => (
+      <div key={movie.id} className="movie-item" onClick={() => navigate(`/movies/${movie.id}`)} style={{ cursor: "pointer" }}>
+        <img src={movie.thumbnail} alt="Phim" className="movie-thumbnail" />
+      </div>
+    ))}
+  </div>
+  {visiblePhimBo < phimBo.length && (
+    <button onClick={() => setVisiblePhimBo((prev) => prev + 6)} className="load-more-btn">
+      Xem thêm
+    </button>
+  )}
+</div>
 
 
       <div className="movie-section">
-        <h2>PHIM BỘ</h2>
-        <div className="movie-list">
-          {phimBo.length > 0 ? (
-            phimBo.map((movie) => (
-              <div key={movie.id} className="movie-item" onClick={() => navigate(`/movies/${movie.id}`)} style={{ cursor: "pointer" }}>
-                <img src={movie.thumbnail} alt="Phim" className="movie-thumbnail" />
-              </div>
-            ))
-          ) : (
-            <div>Không có phim bộ</div>
-          )}
-        </div>
+  <h2>PHIM LẺ</h2>
+  <div className="movie-list">
+    {phimLe.slice(0, visiblePhimLe).map((movie) => (
+      <div key={movie.id} className="movie-item" onClick={() => navigate(`/movies/${movie.id}`)} style={{ cursor: "pointer" }}>
+        <img src={movie.thumbnail} alt="Phim" className="movie-thumbnail" />
       </div>
-
-      <div className="movie-section">
-        <h2>PHIM LẺ</h2>
-        <div className="movie-list">
-          {phimLe.length > 0 ? (
-            phimLe.map((movie) => (
-              <div key={movie.id} className="movie-item" onClick={() => navigate(`/movies/${movie.id}`)} style={{ cursor: "pointer" }}>
-                <img src={movie.thumbnail} alt="Phim" className="movie-thumbnail" />
-              </div>
-            ))
-          ) : (
-            <div>Không có phim lẻ</div>
-          )}
-        </div>
-      </div>
+    ))}
+  </div>
+  {visiblePhimLe < phimLe.length && (
+    <button onClick={() => setVisiblePhimLe((prev) => prev + 6)} className="load-more-btn">
+      Xem thêm
+    </button>
+  )}
+</div>
     </div>
   );
 };
