@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "ty
 import { UserType } from "./userType";
 import { Rating } from "./rating";
 import { WatchHistory } from "./watchHistory";
-import { Token } from "./token";
+
 
 @Entity()
 export class User {
@@ -29,9 +29,6 @@ export class User {
 
     @OneToMany(() => WatchHistory, (watchHistory) => watchHistory.user)
     watchHistories!: WatchHistory[];
-
-    @OneToMany(() => Token, (token) => token.user)
-    tokens!: Token[];
 
     @Column({ nullable: true })
     resetToken?: string;
