@@ -2,12 +2,13 @@
   padding: 20px;
 }
 .category-title {
+  color: #fff;
   text-transform: uppercase;
   margin-bottom: 16px;
 }
 .movie-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 16px;
 }
 .movie-card {

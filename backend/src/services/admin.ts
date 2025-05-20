@@ -1,6 +1,6 @@
 import { AppDataSource } from "../config/db";
-import { Movie } from "../models/movie";
-import { Episode } from "../models/episode";
+import { Movie } from "../models/Movie";
+import { Episode } from "../models/Episode";
 
 export const getAllMoviesService = async () => {
   const movieRepo = AppDataSource.getRepository(Movie);

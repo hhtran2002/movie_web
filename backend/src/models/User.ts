@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm";
-import { UserType } from "./userType";
-import { Rating } from "./rating";
-import { WatchHistory } from "./watchHistory";
+import { UserType } from "./UserType";
+import { Rating } from "./Rating";
+import { WatchHistory } from "./WatchHistory";
 
 
 @Entity()

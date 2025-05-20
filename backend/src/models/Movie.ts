@@ -7,12 +7,12 @@ import {
   ManyToMany,
   JoinTable,
 } from "typeorm";
-import { Genre } from "./genre";
-import { Category } from "./category";
-import { Country } from "./country";
-import { Episode } from "./episode";
-import { Rating } from "./rating";
-import { WatchHistory } from "./watchHistory";
+import { Genre } from "./Genre";
+import { Category } from "./Category";
+import { Country } from "./Country";
+import { Episode } from "./Episode";
+import { Rating } from "./Rating";
+import { WatchHistory } from "./WatchHistory";
 
 @Entity()
 export class Movie {

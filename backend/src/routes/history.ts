@@ -2,8 +2,8 @@ import { Router, Response, Request } from "express";
 import { authenticate, AuthRequest } from "../middleware/auth";
 import { AppDataSource } from "../config/db";
 import { saveWatchHistoryService } from "../services/movie";
-import { WatchHistory } from "../models/watchHistory";
-import { Movie } from "../models/movie";
+import { WatchHistory } from "../models/WatchHistory";
+import { Movie } from "../models/Movie";
 
 const router = Router();
 

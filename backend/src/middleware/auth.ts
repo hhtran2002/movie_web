@@ -1,9 +1,10 @@
 import { RequestHandler } from "express";
 import jwt from "jsonwebtoken";
 import { AppDataSource } from "../config/db";
-import { User } from "../models/user";
+import { User } from "../models/User";
 
 export interface AuthRequest extends Request {
+  [x: string]: any;
   user?: User;
 }
 

@@ -2,8 +2,8 @@
 import { Router, Request, Response } from "express";
 import { body, param, validationResult } from "express-validator";
 import { AppDataSource } from "../config/db";
-import { Rating } from "../models/rating";
-import { Movie } from "../models/movie";
+import { Rating } from "../models/Rating";
+import { Movie } from "../models/Movie";
 import { authenticate, AuthRequest } from "../middleware/auth";
 
 const router = Router();

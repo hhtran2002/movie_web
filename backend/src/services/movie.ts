@@ -1,9 +1,9 @@
 
 import { AppDataSource } from "../config/db";
-import { Movie } from "../models/movie";
-import { Episode } from "../models/episode";
-import { Rating } from "../models/rating";
-import { WatchHistory } from "../models/watchHistory";
+import { Movie } from "../models/Movie";
+import { Episode } from "../models/Episode";
+import { Rating } from "../models/Rating";
+import { WatchHistory } from "../models/WatchHistory";
 import { MoreThan } from "typeorm";
 
 export const getAllMoviesService = async () => {
